@@ -1,0 +1,69 @@
+MST():
+    T <- ∅ // initializing empty MST
+
+    while |T| < |V| - 1
+        search for edge (u, v) which spans T
+        T <- T ∪ {(u, v)}
+    
+    return T
+
+Prim(G): // T = O(E log V), S = none
+    T <- ∅ // initializing empty MST
+    U <- { 1 }
+    
+    while (U ≠ V)
+        let (u, v) be the lowest cost edge such that u ∈ U and v ∈ V - U; // U - list of visited vertices, V - U is list of not visited vertices
+        T <- T ∪ {(u, v)} // add the edge to the MST
+        U <- U ∪ {v} // add the vertex to the visited
+
+    return T
+
+Kruskal(G): // T = O(E log E), S = none
+    T <- ∅ // initializing empty MST
+    
+    foreach vertex v ∈ G.V // razbivane
+        make_set(v)
+
+    foreach edge (u, v) ∈ G.E ordered by increasing order by weight(u, v)
+        if find_set(u) ≠ find_set(v)    
+            T <- T ∪ {(u, v)}
+            union(u, v)
+
+    return T
+
+Dijkstra(G, S): // T = O(E log V), S = O(V)
+    foreach vertex V in G
+        distance[V] <- infinity
+        previous[V] <- NULL
+        
+        if V != S, add V to Priority Queue Q
+            distance[S] <- 0
+
+    while Q is not empty
+        U <- extract MIN from Q
+        
+        foreach unvisited neighbour V of U
+            tempDistance <- distance[U] + edge_weight(U, V)
+            
+            if tempDistance < distance[V]
+                distance[V] <- tempDistance
+                previous[V] <- U
+
+    return distance[], previous[]
+
+Floyd(): // T = O(n^3), S = O(n^2)
+    n <- |V| //number of vertices
+    A <- matrix of dimension n * n
+
+    foreach edge(u, v)
+        A[u, v] <- w(u, v)
+
+    foreach vertex V
+        A[v, v] <- 0
+
+    for k <- 1 to n
+        for i <- 1 to n
+            for j <- 1 to n
+                A[i, j] <- min(A[i, j], A[i, k] + A[k, j])
+
+    return A
