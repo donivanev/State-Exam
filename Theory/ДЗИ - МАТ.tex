@@ -1,0 +1,701 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathabx}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage[utf8]{inputenc}
+\usepackage[bulgarian]{babel}
+\graphicspath{ {./images/} }
+\newcommand{\indep}{\rotatebox[origin=c]{90}{$\models$}}
+
+\begin{document}
+
+\title{Теми за Държавен Изпит}
+\author{}
+\maketitle
+
+\section*{Линейна алгебра}
+
+\subsection*{Симетрични оператори в крайномерни евклидови пространства. Основни свойства.
+Теорема за диагонализация.}
+
+Нека E е евклидово пространство и $\varphi: E \rightarrow E$ \newline\newline
+\textbf{\underline{Дефиниция}}
+$\varphi$ е \textbf{симетричен оператор}, ако е линеен оператор и $\forall x, y \in E$ е изпълнено $(\varphi(x), y) =
+(x, \varphi(y))$ \newline\newline
+\textbf{\underline{Дефиниция}}
+$A$ е \textbf{симетрична матрица}, ако $A = A^t \iff a_{ij} = a_{ji}$ за $i, j \in \{1..n\}$ \newline\newline
+\textbf{\underline{Свойства}}
+\begin{itemize}
+    \item Симетричните матрици образуват подпространство на линейното пространство $M_n(\mathbb{R})$
+    \item Ако $A$ е обратима симетрична матрица, то $A^{-1}$ също е симетрична матрица.
+    \item Ако $A$ и $B$ са симетрични матрици и $AB = BA$, то $AB$ също е симетрична матрица.
+\end{itemize}
+\textbf{\underline{Теорема}} \newline
+Нека $E$ е ЕП и $e_1 ... e_n$ е ортонормиран базис на $E$.
+Нека $\varphi : E \rightarrow E$ е линеен оператор с матрица $A$ спрямо този базис.
+$(e_i, e_j) = \begin{cases}
+    0, & i \neq j\\
+    1, & i = j\\
+\end{cases}$ \newline
+Тогава $\varphi$ е симетричен оператор $\iff A$ е симетрична матрица
+\begin{proof}
+Нека $A = \begin{pmatrix}
+    a_{11} \hdots a_{1n} \\
+    \hdots \\
+    a_{n1} \hdots a_{nn}
+\end{pmatrix}$.
+Имаме, че $\varphi(e_i) = a_{1i}e_1 + ... + a_{ni}e_n$
+Базисът $e_1 ... e_n$ е ортонормиран $\implies x = x_1e_1 + ... + x_ne_n, y = y_1e_1 + ... + y_ne_n$ и $(x, y) = x_1y_1 + ... +
+x_ny_n$ \newline\newline
+$a_{ji} = (\varphi(e_i), e_j) = (a_{1i}e_1 + ... + a_{ji}e_j + ... + a_{ni}e_n, e_j) = a_{1i}(e_1, e_j) + ...
++ a_{ji}(e_j, e_j) + ... + a_{ni}(e_n, e_j) \implies a_{ji} = (\varphi(e_i), e_j) \overset{\mathrm{
+\varphi \text{ сим. }}}{=} (e_i, \varphi(e_j)) = a_{ij} \implies a_{ji} = a{ij} \implies A$ е симетрична матрица \newline\newline
+Нека $\varphi$ е линеен оператор и $A$ е матрица на $\varphi$. $A = A^t$ спрямо ортонормирания базис.
+От $a_{ji} = (\varphi(e_i), e_j)$ и $a_{ij} = (\varphi(e_j), e_i) \implies (\varphi(e_i), e_j) = (\varphi(e_j),
+e_i)$
+Нека $x = x_1e_1 + ... + x_ne_n \in E$ и $y = y_1e_1 + ... + y_ne_n \in E$ \newline
+$$(\varphi(x), y) = (\varphi(\sum_{i}x_ie_i), \sum_{j}y_je_j) = (\sum_{i}x_i\varphi(e_i), \sum_{j}y_je_j) =
+\sum_{i}x_i (\varphi(e_i), \sum_{j}y_je_j)$$ $$ = \sum_{i}\sum_{j}x_iy_j(\varphi(e_i), e_j) = \sum_{i}\sum_{j}x_iy_j
+(e_i, \varphi(e_j)) = (\sum_{i}x_ie_i, \sum_{j}y_j\varphi(e_j)) = (x, \varphi(\sum_{j}y_je_j)) = (x, \varphi(y))$$ \end{proof}
+\textbf{\underline{Теорема}} \newline
+Всички характеристични корени на симетрична матрица са реални числа.
+\begin{proof}
+% $f_A(\lambda) = $ характеристичен полином, $degf = n, f_A(\lambda) \in \mathbb{R}[x]$
+% От ОТА $\implies$ всеки полином с реални коефициенти има корени в полето на $\mathbb{C}$.
+% Нека $\alpha$ е корен на $f_A(\lambda), \alpha \in \mathbb{C} \implies det(A - \alpha E) = 0 \implies
+% A - \alpha E \in M_{nxn}(\mathbb{C}) \implies U:$
+% \[
+% \left|  \begin{aligned}
+%     & (a_{11} - \alpha)x_1 + ... + a_{1n}x_n = 0 \\
+%     & \hdots  \\
+%     & a_{n1}x_1 + ... + (a_{nn} - \alpha)x_n = 0 \\
+% \end{aligned}\right.
+% \]
+% $dimU = n - r(A - \alpha E) \implies dimU > 0 \implies$ в $U$ има поне 1 ненулево решение $\beta = 
+% (\beta_1...\beta_n) \in \mathbb{C}^n$
+% $$(A - \alpha E)\begin{pmatrix} \beta_1 \\ \vdots \\ \beta_n \end{pmatrix} = 0 \implies
+% A\begin{pmatrix} \beta_1 \\ \vdots \\ \beta_n \end{pmatrix} = \alpha
+% \begin{pmatrix} \beta_1 \\ \vdots \\ \beta_n \end{pmatrix}$$
+% $(\overline{\beta_1} ... \overline{\beta_n}) A \begin{pmatrix} \beta_1 \\ \vdots \\ \beta_n \end{pmatrix}
+% = \alpha (\overline{\beta_1} ... \overline{\beta_n}) \begin{pmatrix} \beta_1 \\ \vdots \\ \beta_n \end{pmatrix}
+% = \alpha (\overline{\beta_1}\beta_1) + ... + (\overline{\beta_n}\beta_n) = \alpha (\underbrace{|\beta_1|^2 + ... +
+% |\beta_n|^2}_{\in \mathbb{R}, \ge 0})$
+% Транспонираме: $(AB)^t = B^tA^t$
+% $$\begin{pmatrix} \beta_1 \\ \vdots \\ \beta_n \end{pmatrix}^t A^t (\overline{\beta_1} ... \overline{\beta_n})^t =
+% \alpha(|\beta_1|^2 + ... + |\beta_n|^2)$$
+% $$(\beta_1...\beta_n) A \begin{pmatrix} \overline{\beta_1} \\ \vdots \\ \overline{\beta_n} \end{pmatrix} = 
+% \alpha(|\beta_1|^2 + ... + |\beta_n|^2)$$
+% Взимаме комплексно спрегнатото и получаваме:
+% $$(\beta_1...\beta_n) A \begin{pmatrix} \overline{\beta_1} \\ \vdots \\ \overline{\beta_n} \end{pmatrix} = 
+% \overline{\alpha}(|\beta_1|^2 + ... + |\beta_n|^2)$$
+% От тук:
+% $$\alpha(|\beta_1|^2 + ... + |\beta_n|^2) = \overline{\alpha}(|\beta_1|^2 + ... + |\beta_n|^2)$$
+% $$\alpha = \overline{\alpha} \implies \alpha \in \mathbb{R}$$
+Нека $A = (a_{ij})_{nxn}$ е симетрична матрица и $\lambda$ е (комплексен) характеристичен корен на $A$. Ще докажем, че $\lambda
+\in \mathbb{R}$. \newline
+Имаме $f_A(\lambda) = det(A - \lambda E) = 0 \implies$ хомогенната система с матрица $A - \lambda E$ има ненулево решение
+$(x_1, ..., x_n) \in \mathbb{C}^n$, т.е. е в сила: \newline\newline
+$\left| \begin{aligned}
+    & (a_{11} - \lambda)x_1 + ... + a_{1n}x_n = 0 \\
+    & \hdots  \\
+    & a_{n1}x_1 + ... + (a_{nn} - \lambda)x_n = 0 \\
+\end{aligned}\right. \hspace{1cm}$
+или $\hspace{1cm} \left| \begin{aligned}
+    & a_{11}x_1 + ... + a_{1n}x_n = \lambda x_1 \\
+    & \hdots  \\
+    & a_{n1}x_1 + ... + a_{nn}x_n = \lambda x_n \\
+\end{aligned}\right.$ \newline\newline
+Като умножим първото равенство с $\overline{x_1}$, а второто с $\overline{x_2}$ и т.н., $n$-тото с $\overline{x_n}$ и ги съберем
+получаваме $$\sum_{i, j = 1}^{n}a_{ij}x_j\overline{x_i} = \lambda \sum_{i = 1}^{n}x_i\overline{x_i} = \lambda \sum_{i = 1}^{n}|x_i|^2$$
+Да означим $u = \sum_{i, j = 1}^{n}a_{ij}x_j\overline{x_i}, v = \sum_{i = 1}^{n}|x_i|^2$. Числото $v \in \mathbb{R} > 0$.
+Използваме, че $A$ е симетрична матрица $(a_{ij} = a_{ji})$ и получаваме $\overline{u} = \sum_{i, j = 1}^{n}\overline{a_{ij}}
+\overline{x_j}\overline{\overline{x_i}} = \sum_{i, j = 1}^{n}a_{ij}\overline{x_j}x_i = \sum_{i, j = 1}^{n}a_{ji}\overline{x_j}
+x_i = u$. Тогава $\overline{u} = u \implies u \in \mathbb{R}$ и $\lambda = \frac{u}{v} \in \mathbb{R}$
+\end{proof}
+\textbf{\underline{Следствие}}
+Всички характеристични корени на симетричен оператор $\in \mathbb{R}$ \newline\newline
+\textbf{\underline{Твърдение}}
+Всеки два собствени вектора, съответстващи на различни собствени стойности на симетричен оператор, са ортогонални помежду си.
+\begin{proof}
+Нека $\varphi$ е симетричен оператор, $\lambda_1$ и $\lambda_2$ са различни собствени стойности на $\varphi$ и $v_1$ и $v_2$ са
+съответстващи им собствени вектори на $\varphi$. Имаме $(\varphi(v_1), v_2) = (v_1, \varphi(v_2))$, откъдето $(\lambda v_1, v_2)
+= (v_1, \lambda_2 v_2) \implies \lambda(v_1, v_2) = \lambda_2(v_1, v_2) \implies (\lambda_1 - \lambda_2)(v_1, v_2) = 0$. От
+$\lambda_1 \neq \lambda_2$, то $(v_1, v_2) = 0$ \newline
+\end{proof}
+\textbf{\underline{Теорема} (диагонализация)} \newline
+Нека $\varphi: E \rightarrow E$ е симетричен оператор в крайномерно ЕП - $E$. Тогава съществува ортонормиран
+базис на $E$, в които матрицата на $\varphi$ е диагонална (по главния й диагонал стоят собствените стойности на $\varphi$, а
+базисните вектори са собствени вектори на $\varphi$)
+\begin{proof}
+Трябва да докажем, че пространството $E$ притежава ортонормиран базис $v_1, ..., v_n$, състоящ се от собствени вектори на
+$\varphi$, т.е. $\varphi(v_1) = \lambda_1v_1, ..., \varphi(v_n) = \lambda_nv_n (\lambda_1, ..., \lambda_n \in \mathbb{R})$.
+Тогава матрицата $D$ на $\varphi$ в този базис е $$D = \begin{pmatrix} \lambda_1 & & 0 \\ & \ddots & \\ 0 & & \lambda_n \end{pmatrix}$$
+където $T$ е матрица на прехода и $\lambda_i$ - собствени ст-ти на $e_i$ \newline\newline
+Прилагаме индукция по $n = dimE$ \newline
+Нека $n = 1 \implies$ твърдението е очевидно. \newline
+Нека $n > 1$ и доп., че теоремата е доказана за по-малки стойности за $n$. \newline\newline Нека $\lambda_1$ е собствена стойност на
+$\varphi$ и $v'_1$ е собствен вектор на $\varphi$, съответстващ на $\lambda_1$ (хар. корени на $\varphi$ са реални числа
+$\implies$ $\varphi$ притежава собствена стойност). Заменяйки $v'_1$ вектора $v_1 = \frac{1}{|v'_1|}v'_1$ получаваме собствен
+вектор на $\varphi$, съответстващ на $\lambda_1$, който е с дължина $1$. \newline Да означим $U = l(v_1)$ и нека $U^{\perp}$
+е ортогоналното допълнение на $U$, т.е. $U^{\perp} = \{v \in E | (v, v_1) = 0\}$.
+Ще докажем, че подпространството $U^{\perp}$ е $\varphi$-инвариантно, т.е. ако един вектор $v \in U^{\perp}$, то и
+$\varphi(v) \in U^{\perp}$. \newline\newline
+Нека $v \in U^{\perp}$, т.е. $(v, v_1) = 0$. Използваме, че $\varphi$ е симетричен оператор, т.е. $(\varphi(v), v_1) =
+(v, \varphi(v_1)) = (v, \lambda_1v_1) = \lambda_1(v, v_1) = 0 \implies \varphi(v) \in U^{\perp}$ \newline
+Така $\varphi$ съпоставя на всеки вектор от $U^{\perp}$ вектор, който също лежи в $U^{\perp}$, т.е. $\varphi$ е симетричен
+оператор, действащ в пространството $U^{\perp}$. Знаем, че $E = U \otimes U^{\perp}$ и $dimU = 1 \implies dimU^{\perp} = n - 1$
+и според ИП, $U^{\perp}$ притежава ортонормиран базис $v_2, ..., v_n$, състоящ се от собствени вектори на $\varphi$, т.е.
+$\varphi(v_2) = \lambda_2v_2, ..., \varphi(v_n) = \lambda_nv_n (\lambda_2, ..., \lambda_n \in \mathbb{R})$. Освен това, векторите
+$v_2, ..., v_n$ са от $U^{\perp}$ и значи са ортогонални на вектора $v_1$. \newline Тогава $v_1, ..., v_n$ е базис на $E$, който
+е ортонормиран и $\varphi(v_i) = \lambda_iv_i$ за $i = 1, 2, ... n \implies$ матрицата $D$ на $\varphi$ в този базис е диагонална
+и по главния ѝ диагонал стоят числата $\lambda_1, ..., \lambda_n$
+$$\begin{pmatrix} \alpha & & & 0 \\ & \lambda_1 \\ & & \ddots & \\ 0 & & & \lambda_{n-1} \end{pmatrix}
+= T^{-1}AT = T^tAT$$
+\end{proof}
+
+\section*{Висша алгебра}
+
+\subsection*{Симетрична и алтернативна група. Теорема на Кейли. Теорема за хомоморфизмите на групи.}
+
+\textbf{\underline{Дефиниция}}
+Нека $M \neq \varnothing$ и $S(M) = \{\varphi | \varphi : M \rightarrow M, \varphi \text{ е биекция}\}$.
+Множеството от биекциите разглеждаме с операцията композиция на изображения: $\varphi \circ \psi(x) =
+\varphi(\psi(x)), \forall x \in M$. Тогава ако $\forall M \neq \varnothing, S(M)$ разглеждано с операцията
+композиция е група, то тя се нарича \textbf{симетрична група} на $M$. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $i_1, i_2, ..., i_k$ са различни числа от $\Omega_n$, а $\sigma$ е пермутация, действаща по правилото: $\sigma(i_1) = i_2,
+\sigma(i_2) = i_3, ..., \sigma(i_k) = i_1$ и всички останали числа остават на място под действието на $\sigma$. Такава пермутация
+наричаме \textbf{цикъл}, а числото $k$ - дължина на цикъла. \newline\newline
+\textbf{\underline{Дефиниция}}
+Казваме, че циклите $(i_1, ..., i_k)$ и $(j_1, ..., j_s)$ са \textbf{независими}, ако $\{i_1, ..., i_k\} \cap \{j_1, ..., j_s\} =
+\varnothing$ \newline\newline
+\textbf{\underline{Твърдение}} \newline
+Всяка пермутация $\sigma \in S_n$ се представя като произведение на независими цикли. Това представяне е единствено с точност
+до реда на множителите.
+\begin{proof}
+Нека $i_1$ е произволно число от $\Omega_n$. Разглеждаме числата $i_1, i_2 = \sigma(i_1), ..., i_k = \sigma(i_{k-1})$, където
+$k$ е най-голямото естествено число, за което тези числа са различни. Тогава $\sigma(i_k)$ е някое от тях. Твърдим, че $\sigma
+(i_k) = i_1$. Това е изпълнено при $k = 1$, а ако $k > 1$ и например $\sigma(i_k) = i_2$, то $i_k \neq i_1$, но $\sigma(i_k)
+= \sigma(i_1)$, което е противоречие. \newline\newline Нека $\sigma = (i_1...i_k)$ и $j_1$ е число от $\Omega_n$, което не участва в
+записа на $\sigma_1$. По аналогичен начин получаваме цикъл $\sigma_2 = (j_1...j_s)$. Циклите $\sigma_1$ и $\sigma_2$ са независими.
+Продължаваме по този начин, докато изчерпим всички числа от $\Omega_n$. Очевидно $\sigma$ е произведение на получените независими
+цикли. \newline\newline Нека $\sigma = \sigma_1...\sigma_t = \sigma'_1...\sigma'_m$ са две разлагания на $\sigma$ в произведение на
+независими цикли. Всяко число от $\Omega_n$ участва в записа на някой цикъл и в двете разлагания. Нека дадено число участва в
+записа на $\sigma_1$ и в записа на $\sigma'_1$. Тогава $\sigma = \sigma'_1$. Като умножим $\sigma$ отляво със $\sigma^{-1}_1$,
+получаваме равенството $\sigma_2...\sigma_t = \sigma'_2...\sigma'_m$. Прилагайки към получената пермутация неколкократно
+аналогични разсъждения, получаваме $t = m$ и $\sigma_2 = \sigma'_2...\sigma_t = \sigma'_t$.
+\end{proof}
+\textbf{\underline{Пример}}
+$\varphi = \begin{pmatrix}
+    1 & 2 & 3 & 4 & 5 & 6 \\
+    5 & 6 & 3 & 2 & 1 & 4
+\end{pmatrix} = (15)(264)(3) = (15)(264)$ \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $(G, .)$ е група и $a, b, g \in G$. Казваме, че $b$ е \textbf{спрегнат} с $a$, ако $b = gag^{-1}$ \newline\newline
+\textbf{\underline{Дефиниция}}
+Цикъл с дължина $2$ наричаме \textbf{транспозиция}. \newline\newline
+\textbf{\underline{Твърдение}} \newline
+Всяка пермутация $\sigma \in S_n$ може да се представи като произведение на транспозиции, т.е. $S_n$ се поражда от всички
+транспозиции.
+\begin{proof}
+Следва от горното твърдение и от равенството $(i_1i_2...i_{t - 1}i_t) = (i_{t - 1}i_t)(i_{t - 2}i_t)...(i_2i_t)(i_1i_t)$, което
+се проверява непосредствено.
+\end{proof}
+\textbf{\underline{Дефиниция}}
+Множеството $A_n = \{\varphi \in S_n | \varphi \text{ е четна}\}$ наричаме \textbf{алтернативна група}. \newline\newline
+\textbf{\underline{Твърдение}} \newline
+Групата $A_n (n \ge 3)$ се поражда от всички тройни цикли.
+\begin{proof}
+Следва от факта, че всяка четна пермутация е произведение на четен брой транспозиции и равенствата $(ij)(kl) = (jkl)(ilj)$ и
+$(ij)(il) = (ilj)$
+\end{proof}
+\textbf{\underline{Теорема} (Кейли)} \newline
+Всяка крайна група $G$ от ред $n$ е изоморфна на подгрупа на симетричната група $S_n$
+\begin{proof}
+Нека $a \in G$ и $\varphi_a : G \rightarrow G : \varphi_a(x) = ax$ \newline\newline
+$1. \varphi_a$ е биекция $\implies \varphi_a \in S(G) = S_n$ \newline $\varphi_a(x) = \varphi_a(y) \iff ax = ay \iff a^{-1}(ax) = a^{-1}(ay) \iff x = y$
+$x \in G : x = \varphi_a(a^{-1}x) = a(a^{-1}x) = x$ \newline\newline
+$2. \varphi_a \in S(G)$ и нека $G' = \{\varphi_a | a \in G\} \subset S(G)$
+\begin{itemize}
+    \item $(\varphi_a \circ \varphi_b)(x) = \varphi_a(\varphi_b(x)) = a(bx) = (ab)x = \varphi_{ab}(x) \implies
+    \varphi_a \circ \varphi_b = \varphi_{ab} \in S(G)$
+    \item $\varphi_e(x) = x \implies \varphi_e = id \in G'$
+    \item $\varphi_a \circ \varphi_{a^{-1}} = \varphi_{aa^{-1}} = id \implies \varphi_{a^{-1}} \in G'$ и
+    $\varphi_{a^{-1}} = (\varphi a)^{-1}$
+\end{itemize}
+$\implies G' < S(G)$ \newline\newline
+$3. \varphi : G \rightarrow G' : \varphi(a) = \varphi_a$
+\begin{itemize}
+    \item $\varphi(ab) = \varphi_{ab} = \varphi_a \circ \varphi_b = \varphi(a) \circ \varphi(b)$
+    \item $\varphi(a) = \varphi(b) \iff \varphi_ax = \varphi_bx, \forall x \iff ax = bx \iff a = b$
+\end{itemize}
+$\implies \varphi$ е изоморфизъм $\implies G \cong G' < S(G) = S_n \hspace{1cm}$
+\end{proof}
+Нека $(G, *), (L, \circ)$ са групи и $\varphi : G \rightarrow L$ е изображение от $G$ в $L$ \newline\newline
+\textbf{\underline{Дефиниция}}
+Казваме, че изображението $\varphi$ е \textbf{хомоморфизъм}, ако \newline $\varphi(a * b) = \varphi(a) \circ \varphi(b)$ \newline\newline
+\textbf{\underline{Дефиниция}}
+Казваме, че изображението $\varphi$ е \textbf{изоморфизъм}, ако \newline $\varphi$ е хомоморфизъм и биекция. \newline\newline
+\textbf{\underline{Дефиниция}}
+\textbf{Ядро} на $\varphi$ наричаме $Ker \varphi = \{a \in G | \varphi(a) = e_L\} \subset G$ \newline\newline
+\textbf{\underline{Дефиниция}}
+\textbf{Образ} на $\varphi$ наричаме $Im \varphi = \varphi(G) = \{\varphi(x) | x \in G\} \subset L$ \newline\newline
+\textbf{\underline{Дефиниция}}
+Подгрупата $H < G$ е \textbf{нормална подгрупа} $(H \triangleleft G)$, ако $gH = Hg, \forall g \in G$ \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $H \triangleleft G \implies G \bigcup\limits_{g \in G}gH$. Множеството $G/H = \{gH|g \in G\}$ наричаме
+\textbf{факторгрупа}. \newline\newline
+\textbf{\underline{Теорема} (хомоморфизми при групи)} \newline
+Нека $G$ и $L$ са групи и $\varphi : G \rightarrow L$ е хомоморфизъм. Тогава $Ker \varphi \triangleleft G$
+и $Im \varphi \cong G / Ker \varphi$
+\begin{proof}
+Нека $H = Ker\varphi$. \newline\newline
+$1. \varphi(t) = \varphi(g) \iff t \in gH \iff t \in Hg$. \newline Разглеждаме $\psi: G/H \rightarrow Im\varphi < L$
+$\psi(gH) = \varphi(g)$. \newline От $1. \implies$ ако $tH = gH \implies \varphi(t) = \varphi(g) \implies \psi$ е
+коректно дефинирано \newline\newline
+$2. \psi(gH.uH) = \psi((gu)H) = \varphi(gu) = \varphi(g).\varphi(u) = \psi(gH).\psi(uH) \implies \psi$ е хомоморфизъм \newline\newline
+$3.Im\psi = Im\varphi \implies \psi$ е сюрекция \newline\newline
+$4.$ От $1. \implies \psi(tH) = \psi(gH) \iff \varphi(t) = \varphi(g) \iff t \in gH \iff tH = gH \implies \psi$ е инекция
+$$\implies \varphi \text{ е изоморфизъм, } G/Ker\varphi \cong Im\varphi$$
+\end{proof}
+
+\section*{Диференциално и интегрално смятане}
+
+\subsection*{Теорема на Ферма. Теореми за средните стойности (Рол, Лагранж и Коши). Формула на Тейлър.}
+
+\textbf{\underline{Дефиниция}}
+Нека $f : D \rightarrow \mathbb{R}$. Казваме, че $f$ има \textbf{локален минимум} в точката $x_0$, ако $\exists \delta > 0 :
+(x_0 - \delta, x_0 + \delta) \subset D$ и $f(x_0) \le f(x), \forall x \in (x_0 - \delta, x_0 + \delta)$.
+Аналогично, ако при горните условия $f(x_0) \ge f(x), \forall x \in (x_0 - \delta, x_0 + \delta)$, то $f$ има
+\textbf{локален максимум} в $x_0$. \newline\newline
+\textbf{\underline{Теорема} (Ферма)} \newline
+Нека $f : D \rightarrow \mathbb{R}$ и $x_0$ е точка на локален екстремум за $f$, като $f$ е диференцируема в $x_0$. Тогава
+$f'(x_0) = 0$.
+\begin{proof}
+БОО считаме, че $x_0$ е точка на локален максимум, т.е. $\exists \delta > 0 : (x_0 - \delta, x_0 + \delta) \subset D$
+и $f(x_0) \ge f(x), \forall x \in (x_0 - \delta, x_0 + \delta)$. Разглеждаме $f'(x_0) = \lim_{x \rightarrow x_0} \frac{f(x) -
+f(x_0)}{x - x_0}$. Имаме два случая - $x$ да клони към $x_0$ отляво и отдясно.
+\begin{itemize}
+    \item Ако $x \in (x_0, x_0 + \delta)$, то $\frac{f(x) - f(x_0)}{x - x_0} \le 0 \implies f'(x_0) \le 0$.
+    \item Ако $x \in (x_0 - \delta, x_0)$, то $\frac{f(x) - f(x_0)}{x - x_0} \ge 0 \implies f'(x_0) \ge 0$.
+\end{itemize}
+Получихме, че в $x_0$ стойността на производната трябва да бъде $0$.
+\end{proof}
+Нека $f$ е непрекъсната в затворения интервал $[a, b]$ и притежава производна поне в отворения интервал $(a, b)$ \newline\newline
+\textbf{\underline{Теорема} (Рол)} \newline
+Ако $f(a) = f(b)$, то $\exists c \in (a, b) : f'(c) = 0$
+\begin{proof}
+Имаме, че $f$ е непрекъсната върху $[a, b] \implies $ можем да приложим $T_{\text{Вайерщрас}}$ (всяка непрекъсната функция върху
+краен затворен интервал достига своите минимум и максимум). Получаваме, че
+$f$ е ограничена върху $[a, b]$ и достига НГС в някое $x_{max}$ и НМС в някое $x_{min}$: $\exists x_{max} \in [a, b] : f(x_{max})
+\ge f(x), \forall x \in [a, b]$ и $\exists x_{min} \in [a, b] : f(x_{min}) \le f(x), \forall x \in [a, b]$
+Поне един от случаите е в сила:
+\begin{itemize}
+    \item $x_{min} \in (a, b) \implies x_{min}$ е локален минимум за $f \overset{T_{\text{Ферма}}}{\implies} f'(x_{min}) = 0$
+    \item $x_{max} \in (a, b) \implies x_{max}$ е локален максимум за $f \overset{T_{\text{Ферма}}}{\implies} f'(x_{max}) = 0$
+    \item $x_{min}, x_{max} \in \{a, b\}$. Тъй като $f(a) = f(b)$, то $f(x_{max}) = f(x_{min})$, откъдето получаваме, че $f$ е
+    константа $\implies \forall \xi \in (a, b) : f'(\xi) = 0$
+\end{itemize}
+\end{proof}
+\textbf{\underline{Теорема} (Лагранж)} \newline
+Съществува $c$ такова, че $f(b) - f(a) = f'(c)(b - a)$
+\begin{proof}
+Да разгледаме функцията $g(x) = f(x) - kx$, където искаме да изберем числото $k$ така, че $g$ да удовлетворява условията на
+$T_{\text{Рол}}$. Дотук $g$ е диференцируема в $(a, b)$ и непрекъсната в точките $a$ и $b$, защото $f$ и линейното събираемо
+са такива. За да е налице $g(a) = g(b)$, трябва $f(a) - ka = f(b) - kb$, откъдето избираме $k = \frac{f(b) - f(a)}{b - a}$.
+От $T_{\text{Рол}} \implies \exists \xi \in (a, b) : g'(\xi) = 0$. Тъй като $g'(x) = f'(x) - k$ от правилата за диференциране
+получаваме: $0 = g'(\xi) = f'(\xi) - k \implies f'(\xi) = k = \frac{f(b) - f(a)}{b - a}$.
+\end{proof}
+\textbf{\underline{Теорема} (Коши)} \newline
+Ако функцията $g$ е непрекъсната в затворения интервал $[a, b]$ и притежава производна поне в отворения интервал $(a, b)$
+като $g'(x) \neq 0, x \in (a, b)$, то $\exists c \in (a, b) : \frac{f'(c)}{g'(c)} = \frac{f(b) - f(a)}{g(b) - g(a)}$
+\begin{proof}
+Нека дефинираме функцията $h(x) = f(x) - kg(x)$, като искаме да изберем числото $k$ така, че $h(a) = h(b)$.
+Тоест искаме $f(a) - kg(a) = f(b) - kg(b) \iff k(g(b) - g(a)) = f(b) - f(a)$. Ако допуснем, че $g(a) = g(b)$, то ще бъдат
+изпълнени всички условия на $T_{\text{Рол}}$ за $g \implies \exists x \in (a, b) : g'(x) = 0$. Противоречие с третото условие.
+Получихме, че $g(a) \neq g(b)$, следователно можем да изберем $k = \frac{f(b) - f(a)}{g(b) - g(a)}$ \newline
+\end{proof}
+\textbf{\underline{Формула} (Тейлър)} \newline
+Формула на Тейлър за $f$ около $a$ с остатъчен член във форма на Лагранж:
+$$f(x) = f(a) + \frac{f'(a)}{1!}(x - a) + \frac{f''(a)}{2!}(x - a)^2 + ... + \frac{f^{(n)}(a)}{n!}(x - a)^n + \frac{f^{(n + 1)}
+(\xi(x))}{(n + 1)!}(x - a)^{n + 1}$$
+\subsection*{Определен интеграл. Дефиниция и свойства. Интегруемост на непрекъснатите функции. 
+Теорема на Нютон - Лайбниц.}
+\textbf{\underline{Дефиниция}}
+\textbf{Разбиване} $\tau$ на интервала $[a, b]$ наричаме система от точки $\{x_i\}_{i = 0}^n$ такива, че: $a = x_0 < x_1 < ... <
+x_{n - 1} < x_n = b$. Това означава да разделим интервала $[a, b]$ на $n$ подинтервала: $[a, x_1], [x_1, x_2], ..., [x_{n - 1}, b]$
+където дължината на интервала $i$ е $\Delta x_i = x_i - x_{i - 1}$ \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $f(x)$ е ограничена в интервала $[a, b]$ и $\widetilde{x}$ е разбиване на $[a, b]$ на система от точки $\{x_i\}_{i = 0}^n$.
+Тогава сумата $$\underline{s}(f, [a, b], \widetilde{x}) = \sum_{i = 1}^{n}m_i(x_i - x_{i - 1})$$ където $m_i$ е точната долна
+граница на стойностите на $f(x)$ в интервала $[x_{i - 1}, x_i](m_i = inf_{x \in [x_{i - 1}, x_i]}f(x))$ се нарича \textbf{малка
+сума на Дарбу} \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $f(x)$ е ограничена в интервала $[a, b]$ и $\widetilde{x}$ е разбиване на $[a, b]$ на система от точки $\{x_i\}_{i = 0}^n$.
+Тогава сумата $$\overline{S}(f, [a, b], \widetilde{x}) = \sum_{i = 1}^{n}M_i(x_i - x_{i - 1})$$ където $M_i$ е точната горна
+граница на стойностите на $f(x)$ в интервала $[x_{i - 1}, x_i](M_i = sup_{x \in [x_{i - 1}, x_i]}f(x))$ се нарича \textbf{голяма
+сума на Дарбу} \newline\newline
+\textbf{\underline{Теорема}} \newline
+Функция е интегруема по Риман $\iff \forall \varepsilon > 0 \hspace{0.3cm} \exists s, S : S - s < \varepsilon$
+\begin{proof}
+    $\newline\Leftarrow)$ Нека $\varepsilon > 0$ и $\tau$ е разбиване на интервала $[a, b]$, за което $\overline{S}(f, \tau) - \underline{s}(f, \tau) < \varepsilon$.
+    От свойство 1 $\implies \forall \tau$ $$\underline{s}(f, \tau) \leq \int_{\overline{a}}^{b} f(x)dx \leq \int_{a}^{b} f(x)dx \leq
+    \overline{S}(f, \tau)$$ Тогава $0 \leq \int_{a}^{b} f(x)dx - \int_{\overline{a}}^{b} f(x)dx \leq \underline{S}(f, \tau) -
+    \overline{s}(f, \tau) < \varepsilon \implies \int_{a}^{b} f(x)dx = \int_{\overline{a}}^{b} f(x)dx$, понеже можем да изберем
+    $\varepsilon$ произволно малко. \newline\newline
+    $\Rightarrow)$ Да допуснем, че $f(x)$ е интегруема по Риман в интервала $[a, b]$ и нека $\varepsilon > 0$. От определенията
+    за долен и горен интеграл на Дарбу, числото $\int_{a}^{b} f(x) - \frac{\varepsilon}{2}$ не е горна граница за долните суми на
+    Дарбу и числото $\int_{a}^{b} f(x) + \frac{\varepsilon}{2}$ не е долна граница за горните суми на Дарбу, можем да намерим
+    такива разбивания $\tau_1, \tau_2$, че: $$\int_{a}^{b} f(x)dx - \frac{\varepsilon}{2} < \underline{s}(f, \tau_1) \leq
+    \int_{a}^{b} f(x)dx$$ $$\int_{a}^{b} f(x)dx + \frac{\varepsilon}{2} > \overline{S}(f, \tau_2) \geq \int_{a}^{b} f(x)dx$$
+    Нека $\tau_3 = \tau_1 \cup \tau_2$. От свойствата на сумите на Дарбу и последните две съотношения:
+    $$\int_{a}^{b} f(x)dx - \frac{\varepsilon}{2} < \underline{s}(f, \tau_1) \leq \underline{s}(f, \tau_3) \leq \int_{a}^{b} f(x)dx
+    \leq \overline{S}(f, \tau_3) \leq \overline{S}(f, \tau_2) < \int_{a}^{b} f(x)dx + \frac{\varepsilon}{2}$$
+    $$\implies \overline{S} (f, \tau) - \underline{s}(f, \tau) < \varepsilon$$
+\end{proof}
+\textbf{\underline{Теорема} (Кантор)} \newline
+Всяка непрекъсната функция в краен и затворен интервал е равномерно непрекъсната. \newline\newline
+\textbf{\underline{Теорема}} \newline
+Всяка непрекъсната функция в краен и затворен интервал е интегруема по Риман.
+\begin{proof}
+Нека функцията $f(x)$е непрекъсната в интервала $[a, b]$. Тогава съгласно $T_{\text{Кантор}}$ тя е ограничена и равномерно
+непрекъсната. Нека $\varepsilon > 0$. Тогава от равномерната непрекъснатост $\exists \delta > 0: |f(x_1) - f(x_2)| <
+\frac{\varepsilon}{2(b - a)}$, когато $|x_1 - x_2| < \delta$ за $x_1, x_2 \in [a, b]$. Нека разбиването $\tau$ е избрано с
+единствено изискване $d(\tau) < \delta$. \newline Да разгледаме разликата $\overline{S}(f, \tau) - \underline{s}(f, \tau) = \sum_{k = 1}
+^{n}(M_k - m_k)\Delta x_k$. Понеже $f(x)$ е непрекъсната, тя достига най-малката и най-голямата си стойност във всеки интервал
+$[x_{k - 1}, x_k], k = 0, 1, ..., n \implies M_k = sup_{x \in [x_{k - 1}, x_k]}f(x)$ и $m_k = inf_{x \in [x_{k - 1}, x_k]}f(x)$.
+Тогава $M_k - m_k < \frac{\varepsilon}{2(b - a)} \implies$ при този избор на разбиването $\tau$ имаме $\overline{S}(f, \tau) -
+\underline{s}(f, \tau) \leq \sum_{k = 1}^{n}\frac{\varepsilon}{2(b - a)}\Delta x_k = \frac{\varepsilon}{2(b - a)}\sum_{k = 1}^
+{n}\Delta x_k = \frac{\varepsilon}{2(b - a)}(b - a) < \varepsilon$ 
+\end{proof}
+\textbf{Основни свойства} на Римановия интеграл: \newline\newline
+$1. \int_{a}^{b} f(x)dx = \int_{a}^{b} f(t)dt$ \newline\newline
+$2. \int_{a}^{a} f(x)dx = 0$ \newline\newline
+$3. \int_{a}^{b} f(x)dx = -\int_{b}^{a} f(x)dx$ \newline\newline
+$4.$ Ако $f(x)$ и $g(x)$ са интегруеми в $[a, b]$ и $\lambda - const$, то $f(x) + g(x)$ и $\lambda f(x)$ също са интегруеми в
+$[a, b]$ и $$\int_{a}^{b} \lambda f(x)dx = \lambda \int_{a}^{b} f(x)dx$$ $$\int_{a}^{b} [f(x) + g(x)]dx = \int_{a}^{b} f(x)dx +
+\int_{a}^{b} g(x)dx$$ \newline\newline
+$5.$ Ако $f(x)$ е интегруема в $[a, b]$, то и $|f(x)|$ също е интегруема в $[a, b]$ и $|\int_{a}^{b} f(x)dx| \leq \int_{a}^{b}
+|f(x)|dx$ \newline\newline
+$6.$ Ако $f(x)$ е интегруема в $[a, b]$ и $c \in (a, b)$, то $\int_{a}^{b} f(x)dx = \int_{c}^{a} f(x)dx + \int_{b}^{c} f(x)dx$ \newline\newline
+$7.$ Ако $f(x) \geq 0$ и $f(x)$ е непрекъсната в $[a, b]$, то $\int_{a}^{b} f(x)dx \geq 0$ \newline\newline
+$8.$ Ако $f(x) \leq g(x)$ и $a \leq b$, то $\int_{a}^{b} f(x)dx \leq \int_{a}^{b} g(x)dx$ \newline\newline
+$9.$ Ако $f(x)$ е интегруема в $[a, b]$ и $m$ и $M$ са такива, че $\forall x \in [a, b]: m \leq f(x) \leq M$, то $$m(b - a) \leq
+\int_{a}^{b} f(x)dx \leq M(b - a)$$ 
+\textbf{\underline{Теорема} (за средните стойности)} \newline
+Ако $f$ е непрекъсната в $[a, b]$, то $\exists c \in [a, b] : $ \[ \int_{a}^{b} f(x)dx = f(c)(b - a)\]
+\begin{proof}
+От $T_{\text{Вайерщрас}}$, $f(x)$ достига най-голямата $M$ и най-малката $m$ си стойност в $[a, b]$. Нека $m = f(x_1)$ и $M = 
+f(x_2), x_1, x_2 \in [a, b]$. \newline От св. $9 \implies m(b - a) \leq \int_{a}^{b} f(x)dx \leq M(b - a) \implies m \leq
+\frac{\int_{a}^{b} f(x)dx}{b - a} \leq M$. \newline От $T_{\text{Болцано}} \implies \exists$ поне една т. $c \in [x_1, x_2]$,
+а значи и от $[a, b]$ такава, че $$f(c) = \frac{\int_{a}^{b} f(x)dx}{b - a}$$
+\end{proof}
+\textbf{\underline{Теорема} (Нютон-Лайбниц)} \newline
+Ако $f$ е непрекъсната в $[a, b]$, то $\forall x \in [a, b] :$ \[ \frac{d}{dx} \int_{a}^{x} f(t)dt = f(x)\]
+\begin{proof}
+Тъй като $f(t)$ е непрекъсната в интервала $[a, b]$, то $f(t)$ е непрекъсната в интервала $[a, x] \subseteq [a, b], x \in [a, b]$
+$\implies f(t)$ е интегруема в интервала $[a, x]$. Да означим $F(x) = \int_{a}^{x} f(t)dt$ и да дефинираме $h$ такова, че
+$x + h \in [a, b]$. Разглеждаме диференчното частно: $$\frac{F(x + h) - F(x)}{h} = \frac{1}{h}(\int_{a}^{x + h} f(t)dt -
+\int_{a}^{x} f(t)dt) = \frac{1}{h}(\int_{a}^{x + h} f(t)dt + \int_{x}^{a} f(t)dt) = \frac{1}{h}\int_{x}^{x + h} f(t)dt$$
+От $T_{\text{ср. стойности}} \implies \int_{x}^{x + h} f(t)dt = ((x + h) - x)f(\xi) = hf(\xi)$, където $\xi$ е от интервала с
+краища $x$ и $x + h$. Получихме, че $\frac{F(x + h) - F(x)}{h} = \frac{f(\xi)h}{h} = f(\xi)$. Нека $h \rightarrow 0$. Тъй като
+$x \leq \xi \leq x + h$, то $\xi \rightarrow x$ и тогава: $\lim_{h \rightarrow 0}\frac{F(x + h) - F(x)}{h} = \lim_{h \rightarrow 0}
+f(\xi) = f(x)$. От дефиницията за производна $\implies F'(x) = f(x)$
+\end{proof}
+\textbf{\underline{Формула} (Нютон-Лайбниц)} \newline
+Нека $f(x)$ е непрекъсната в интервала $[a, b]$ и $F(x)$ е нейна примитивна, т.е. $F'(x) = f(x), \forall x \in [a, b]$. Тогава:
+$$\int_{a}^{b}f(x)dx = F(b) - F(a) = F(x)|_a^b$$
+\section*{Аналитична геометрия}
+
+\subsection*{Уравнения на права и равнина. Формули за разстояния.}
+Нека $K = O_{xy}$ - афинна координатна система в равнината \newline\newline
+\textbf{\underline{Параметрични уравнения}} \newline\newline
+$\vec{OM_0} = \vec{r_0}$ и $\vec{OM} = \vec{r}$ са радиус-вектори $\hspace{1cm} \vec{p} \neq \vec{0}$ - даден вектор \newline
+$\exists !$ права $g: \begin{cases}
+    z M_0\\
+    || \vec{p}\\
+\end{cases}$ \newline
+За произволна т.$M$ от $g$ е в сила $\vec{M_0M} || \vec{p} \implies \exists ! s \in \mathbb{R} : \vec{M_0M} = s.\vec{p}$ - 
+установява взаимно-еднозначно съответствие между $s \in \mathbb{R}$ и т.$M \in g$ \newline\newline
+\begin{center}
+    \includegraphics[scale=0.5]{1.png}
+\end{center}
+1. $\vec{M_0M} = \vec{OM} - \vec{OM_0} = \vec{r} = \vec{r_0} \implies \vec{r} - \vec{r_0} = s.\vec{p}$ \newline
+$g: \vec{r} = \vec{r_0} + s.\vec{p}, s \in \mathbb{R}$ - векторно параметрично уравнение \newline
+2. Нека $M_0(x_0, y_0), M(x, y), \vec{p}(p_1, p_2) \implies g: \begin{cases}
+    x = x_0 + s.p_1\\
+    y = y_0 + s.p_2\\
+\end{cases}, s \in \mathbb{R}$ \newline - координатни (скаларни) параметрични уравнения \newline\newline
+\textbf{\underline{Общо уравнение на права}} \newline\newline
+\textbf{\underline{Теорема}} \newline
+Всяка права в равнината има спрямо $K$ уравнение от вида $Ax + By + C = 0, (A, B) \neq (0, 0)$.
+Обратно, всяко уравнение от вида $Ax + By + C = 0, (A, B) \neq (0, 0)$ определя права в равнината. \newline\newline
+$g: Ax + By + C = 0, (A, B) \neq (0, 0) \hspace{1cm} g \parallel \vec{p}(-B, A)$ \newline\newline
+Условие за колинеарност на $g$ и вектор $\vec{q}(q_1, q_2)$: \newline\newline
+$\vec{q}(q_1, q_2) \parallel g \parallel \vec{p}(-B, A) \iff \begin{vmatrix}
+    q_1 & -B \\ 
+    q_2 & A \\
+\end{vmatrix} \iff Aq_1 + Bq_2 = 0$ \newline\newline\newline\newline
+\textbf{\underline{Декартово уравнение на права}} \newline\newline
+Разглеждаме $g: Ax + By + C = 0, B \neq 0$, т.е. $g \nparallel 0_y \implies g: y = -\frac{A}{B}x - \frac{C}{B}$
+Полагаме: $-\frac{A}{B} = k, \frac{C}{B} = n$ \newline
+$g: y = kx + n, k = \tg{\alpha}, \alpha = \sphericalangle(0_x^+, g)$, $(0, n)$ - пресечна точка на $g$ и $0_y$ \newline\newline
+\begin{center}
+    \includegraphics[scale=0.5]{2.png}
+\end{center}
+\textbf{\underline{Взаимно положение на две прави}} \newline\newline
+$g_1: A_1x + B_1y + C_1 = 0 \hspace{1cm} g_2: A_2x + B_2y + C_2 = 0$ \newline\newline
+$1$сл $r \begin{pmatrix} A_1 B_1 \\ A_2 B_2 \end{pmatrix} = 2 \implies g_1 \cap g_2 = \text{ т.} P$ - единствена обща точка \newline\newline
+$2$сл $r \begin{pmatrix} A_1 B_1 \\ A_2 B_2 \end{pmatrix} = 1$ и $\begin{pmatrix} A_1 B_1 C_1 \\ A_2 B_2 C_2 
+\end{pmatrix} = 2 \iff \frac{A_1}{A_2} = \frac{B_1}{B_2} \neq \frac{C_1}{C_2} \implies g_1 \parallel g_2$, нямат обща точка \newline\newline
+$3$сл $r \begin{pmatrix} A_1 B_1 C_1 \\ A_2 B_2 C_2 \end{pmatrix} = 1 \implies g_1 \equiv g_2$,
+$\frac{A_1}{A_2} = \frac{B_1}{B_2} = \frac{C_1}{C_2}$ - точките съвпадат\newline\newline
+\textbf{\underline{Нормално уравнение на права}} \newline\newline
+$g: Ax + By + C = 0, g \parallel \vec{p}(-B, A), g \perp \vec{n_g}(A, B)$ - нормален вектор \newline
+$|\vec{n_g}| = \sqrt{A^2 + B^2} \implies \vec{n_1}(\frac{A}{\sqrt{A^2 + B^2}}, \frac{B}{\sqrt{A^2 + B^2}})$ -
+единичен нормален в-р на $g$ \newline\newline
+\begin{center}
+    \includegraphics[scale=0.5]{3.png}
+\end{center}
+Всички общи уравнения на $g$ имат вида: $(\lambda.A).x + (\lambda.B).y + \lambda.C = 0$ \newline\newline
+Търсим $\lambda$ така, че $\vec{n_1}(\lambda.A, \lambda.B)$ да е единичен \newline
+$\vec{n_1}^2 = (\lambda.A)^2 + (\lambda.B)^2 = 1 \implies \lambda^2 = \frac{1}{A^2 + B^2} \implies \lambda =
+\frac{\pm1}{\sqrt{A^2 + B^2}}$ \newline\newline
+$g: \pm \frac{A.x + B.y + C}{\sqrt{A^2 + B^2}} = 0$ - всяка права има точно две нормалния уравнения \newline
+Ако означим: $A_1 = \frac{A}{\sqrt{A^2 + B^2}}, B_1 = \frac{B}{\sqrt{A^2 + B^2}}, C_1 = \frac{C}{\sqrt{A^2 + B^2}}$,
+то $A_1 = \cos\sphericalangle(\vec{e_1}, \vec{n_1}), B_1 = \cos\sphericalangle(\vec{e_2}, \vec{n_1}), C_1 =
+\delta(\text{т.O}; g)$ \newline\newline
+\textbf{\underline{Разстояние от точка до права}} \newline\newline
+$g: A_1x + B_1y + C_1 = 0$ е нормално уравнение, $A_1^2 + B_1^2 = 1$ \newline\newline
+Нека т.$M_0(x_0, y_0)$ е точка в равнината и т.$H$ е орт. проекция на $M_0$ в $g$ \newline
+$\vec{HM_0} \parallel \vec{n_1} \implies \exists ! \delta: \vec{HM_0} = \delta . \vec{n_1}$
+т.$H(x_H, y_H)$ лежи на \newline\newline $g \begin{cases}
+    x_0 - x_H = \delta . A_1\\
+    y_0 - y_H = \delta . B_1,\\
+\end{cases} \implies \begin{cases}
+    x_H = x_0 - \delta . A_1\\
+    y_H = y_0 = \delta . B_1\\
+\end{cases}$ \newline\newline
+\begin{center}
+    \includegraphics[scale=0.5]{4.png}
+\end{center}
+Заместваме в уравнението на $g: A_1.x + B_1.y + C_1 = 0 \implies A_1(x_0 - \delta.A_1) + B_1(y_0 - \delta.B_1) +
+C_1 = 0 \implies A_1.x_0 + B_1.y_0 + C_1 - \delta(A_1^2 + B_1^2) = 0 \implies \delta = A_1.x_0 + B_1.y_0 + C_1 =
+\frac{A.x_0 + B.y_0 + C}{\sqrt{A^2 + B^2}}$ - разстояние от т.$M_0$ до права $g$ \newline\newline
+\textbf{\underline{Общо уравнение на равнина}} \newline\newline
+\begin{center}
+    \includegraphics[scale=0.5]{5.png}
+\end{center}
+\textbf{\underline{Теорема}} \newline
+Всяка равнина $\pi$ има спрямо $K$ уравнение от вида $Ax + By + Cz + D = 0, (A, B, C) \neq (0, 0, 0)$.
+Обратно, всяко уравнение от вида $Ax + By + Cz + D = 0, (A, B, C) \neq (0, 0, 0)$ е уравнение на точно една
+равнина\newline\newline
+\textbf{\underline{Взаимно положение на две равнини}} \newline\newline
+$\pi_1 : A_1.x + B_1.y + C_1.z + D_1 = 0 \hspace{1cm} \pi_2 : A_2.x + B_2.y + C_2.z + D_2 = 0$ \newline\newline
+$1$сл $r \begin{pmatrix} A_1 B_1 C_1 \\ A_2 B_2 C_2 \end{pmatrix} = 2 \implies \pi_1 \cap \pi_2 = g$ - пресечница \newline\newline
+$2$сл $r \begin{pmatrix} A_1 B_1 C_1 \\ A_2 B_2 C_2 \end{pmatrix} = 1$ и $\begin{pmatrix} A_1 B_1 C_1 D_1 \\ A_2 B_2 C_2 D_2
+\end{pmatrix} = 2 \iff \frac{A_1}{A_2} = \frac{B_1}{B_2} = \frac{C_1}{C_2} \neq \frac{D_1}{D_2} \implies \pi_1 \parallel \pi_2$ \newline\newline
+$3$сл $r \begin{pmatrix} A_1 B_1 C_1 D_1 \\ A_2 B_2 C_2 D_2 \end{pmatrix} = 1 \implies \pi_1 \equiv \pi_2$ \newline\newline
+\textbf{\underline{Нормално уравнение на равнина}} \newline\newline
+ОКС, $k = O_{xyz}$ \newline
+$\pi : A.x + B.y + C.z + D_1 = 0 \hspace{1cm} \vec{n_{\pi}}(A, B, C)$ - нормален вектор на $\pi$ \newline\newline
+$\vec{p}(a, b, c) \parallel \pi \iff (\vec{n_{\pi}} . \vec{p}) = 0$ \newline
+$\vec{n_1} = \frac{\vec{n_{\pi}}}{|\vec{n_{\pi}}|} \implies \vec{n_1}(\frac{A}{\sqrt{A^2 + B^2 + C^2}}, \frac{B}{\sqrt{A^2 +
+B^2 + C^2}}, \frac{C}{\sqrt{A^2 + B^2 + C^2}})$ е единичен нормален вектор на $\pi$ \newline\newline
+$\pi : \frac{A.x + B.y + C.z}{\pm\sqrt{A^2 + B^2 + C^2}} = 0$ е нормално уравнение на $\pi$ \newline\newline
+\textbf{\underline{Разстояние от точка до равнина}} \newline\newline
+Нека $\pi : A_1.x + B_1.y + C_1.z + D_1 = 0$, където $A_1 = \frac{A}{\sqrt{A^2 + B^2 + C^2}}, B_1 = \frac{B}{\sqrt{A^2 + B^2 +
+C^2}}, C_1 = \frac{C}{\sqrt{A^2 + B^2 + C^2}}, D_1 = \frac{D}{\sqrt{A^2 + B^2 + C^2}}$ \newline\newline
+Разглеждаме т.$M_0(x_0, y_0, z_0)$. Нека т.$H$ е орт. пр. на $M_0$ в равнината $\pi$ \newline
+\begin{center}
+    \includegraphics[scale=0.5]{6.png}
+\end{center}
+$\vec{HM_0} \parallel \vec{n_1} \implies \exists! \delta : \vec{HM_0} = \delta . \vec{n_1} \iff \begin{cases}
+    x_0 - x_H = \delta . A_1\\
+    y_0 - y_H = \delta . B_1,\\
+    z_0 - z_H = \delta . C_1
+\end{cases} \implies \begin{cases}
+    x_H = x_0 - \delta . A_1\\
+    y_H = y_0 - \delta . B_1,\\
+    z_H = z_0 - \delta . C_1
+\end{cases}$ \newline
+Заместваме в уравнението на $\pi$ и търсим $\delta$ \newline
+$A_1(x_0 - \delta . A_1) + B_1(y_0 - \delta . B_1) + C_1(z_0 - \delta . C_1) + D_1 = 0$ \newline
+$A_1.x_0 + B_1.y_0 + C_1.z_0 + \delta.1 = 0$ \newline
+Извод: $\delta(M_0;\pi) = \frac{Ax_0 + By_0 + Cz_0 + D}{\sqrt{A^2 + B^2 + C^2}}$ - разстояние от точка до равнина 
+
+\section*{Числен анализ}
+
+\subsection*{Итерационни методи за решаване на нелинейни уравнения.}
+\textbf{\underline{Дефиниция}}
+Нека $\varphi$ е изображение. Казваме, че $\xi$ е \textbf{неподвижна точка} за изображение $\varphi$, ако $\xi = \varphi(\xi)$\newline\newline
+\textbf{\underline{Дефиниция}}
+Казваме, че функцията $g$ удовлетворява \textbf{условието на Липшиц} с константа $q$ в $[a, b]$, ако $|g(x) - g(y)| \le q|x - y| \hspace{1cm}
+x, y \in [a, b]$ \newline\newline
+\textbf{\underline{Дефиниция}}
+Изображение, което изпълнява условието на Липшиц с константа $< 1$, се нарича \textbf{свиващо изображение} \newline\newline
+\textbf{\underline{Лема}} \newline
+Ако $\varphi$ е непрекъснато изображение на интервала $[a, b]$ в себе си, то $\varphi$ има неподвижна точка в $[a, b]$
+\begin{proof}
+Нека $g(x) = \varphi(x) - x$. Изпълнено е, че $g(a) = \varphi(a) - a \ge 0$ и $g(b) = \varphi(b) - b \le 0$. Ако $g(a) = 0$ или
+$g(b) = 0$, тогава очевидно или $a$, или $b$ е неподвижна точка. Иначе $g(x)$ е непрекъсната функция в $[a, b]$ и си сменя знака
+$\implies$ се нулира по $T_{\text{Вайерщрас}}$
+\end{proof}
+\textbf{\underline{Теорема}} \newline
+Нека $\varphi$ е непрекъснато изображение на $[a, b]$ в себе си, което удовлетворява условието на Липшиц с константа $q < 1$.
+Тогава: \newline\newline
+$1.$ Уравнението $x = \varphi(x)$ има единствен корен $\xi$ в $[a, b]$ \newline\newline
+$2.$ Редицата $\{x_n\}$ клони към $\xi$ при $n \rightarrow \infty$. Нещо повече, $|x_n - \xi| \le (b - a)q^n, \forall n$
+\begin{proof}
+1. От Лема $\implies \varphi$ има поне една подвижна точка. Да допуснем, че са повече от една. Нека
+$\xi_1 = \varphi(\xi_1)$ и $\xi_2 = \varphi(\xi_2)$ за някои $\xi_1, \xi_2$ от $[a, b]$. Тогава при $\xi_1 \neq
+\xi_2$, $|\xi_1 - \xi_2| = |\varphi(\xi_1) - \varphi(\xi_2)| \le q|\xi_1 - \xi_2|$ (усл. на Липщиц) $< |\xi_1 -
+\xi_2|$ (защото $q < 1$) . Това е абсурд $\implies \xi_1 = \xi_2$ \newline\newline
+2. $|x_n - \xi| = |\varphi(x_n - 1) - \varphi(\xi)| \le q|x_{n-1} - \xi| = q|\varphi(x_n - 2) - \varphi(\xi)|
+\le q^2|x_{n-2} - \xi| ... \le q^n|x_0 - \xi|$. Тъй като $x_0 \in [a, b]$ и $\xi \in [a, b]$, то $|x_0 - \xi| < b - a$
+\end{proof}
+\textbf{\underline{Следствие}}
+Нека $\xi$ е корен на уравнението $x = \varphi(x)$. Да предположим, че $\varphi$ има непрекъсната производна в околност
+$\mathcal{U}$ на $\xi$ и $|\varphi'(\xi)| < 1$. Тогава при достатъчно добро начално приближение $x_0$ итерационният процес,
+породен от $\varphi$ е сходящ. Нещо повече, съществуват константи $C > 0$ и $0 < q < 1 : |x_n - \xi| \le Cq^n, \forall n$
+\begin{proof}
+Тъй като $\varphi'(t)$ е непрекъсната функция в $\mathcal{U}$ и $|\varphi'(\xi)| < 1$, то $\exists q < 1, \exists \varepsilon > 0$
+такива, че $|\varphi'(t)| \le q, \forall t \in [\xi - \varepsilon, \xi + \varepsilon]$. Освен това, при $t \in [\xi - \varepsilon,
+\xi + \varepsilon]$ имаме $|\varphi(t) - \xi| \le q |t - \xi| \le q\varepsilon < \varepsilon$, т.е. $\varphi(t) \in [\xi -
+\varepsilon, \xi + \varepsilon] \implies \varphi$ е свиващо изображение на интервала $[\xi - \varepsilon, \xi + \varepsilon]$ в
+себе си. Тогава всички твърдения на следствието следват от Теоремата по-горе.
+\end{proof}
+\textbf{\underline{Дефиниция}}
+Казваме, че итерационният процес $x_0, x_1, ...$ има \textbf{ред на сходимост} $p > 1$, ако $\exists$ положителни константи $C$
+и $q > 1 : |x_n - \xi| \le Cq^{p^n}$ \newline\newline
+\textbf{\underline{Метод на хордите}} \newline
+Геометрична илюстрация: \includegraphics[scale=0.5]{chord.png} \newline
+Формула за последователните приближения: $x_{n+1} = x_n - \frac{f(x_n)}{f(b) - f(x_n)}(b - x_n)$ \newline
+Ред на сходимост: \newline\newline
+\textbf{\underline{Теорема}} \newline
+При метода на хордите сходимостта е със скоростта на геометричната прогресия (при условие, че коренът е отделен в достатъчно малък интервал).
+\begin{proof}
+Методът на хордите е итерационен процес, породен от функцията $\varphi(x) = x - \frac{f(x)}{f(b) - f(x)}(b - x)$. При $x \in (a, b)$
+уравнението $x = \varphi(x)$ е еквивалентно с $f(x) = 0$. За да приложим Следствието към $\varphi$, ще ни е нужно $\varphi'(\xi)$.
+Имаме $$\varphi'(\xi) = 1 - f'(\xi)[\frac{b - \xi}{f(b) - f(\xi)}] - f(\xi)(\frac{b - x}{f(b) - f(x)})'|_{x = \xi}$$ Тъй като
+$f(\xi) = 0$, то $\varphi'(\xi) = 1 - f'(\xi)\frac{b - \xi}{f(b)} = \frac{f(b) - f'(\xi)(b - \xi)}{f(b)}$. Като заместим $f(b)$
+по формула на Тейлър с $$f(b) = f(\xi) + f'(\xi)(b - \xi) + \frac{f''(\eta_1)}{2}(b - \xi)^2 \hspace{1cm} \text{ в числител}$$
+$$f(b) = f(\xi) + f'(\eta_2)(b - \xi) \hspace{1cm} \text{ в знаменател}$$ където $\eta_1$ и $\eta_2$ са точки от $(a, b)$,
+получаваме $$\varphi'(\xi) = \frac{f''(\eta_1)(b - \xi)}{2f'(\eta_2)}$$
+Да означим $M := \underset{t \in [a, b]}{max} |f''(t)|$ и $m = \underset{t \in [a, b]}{min} |f'(t)|$. По условие $f'(t) > 0$ в
+$[a, b]$, то $m > 0$. Тогава $|\varphi'(\xi)| \le \frac{M}{2m}|b - \xi|$ и $|\varphi'(\xi)|$ може да е $< q < 1$, ако
+$b - \xi$ да е достатъчно малко ($[a, b]$ да е достатъчно малък). Ако $\xi$ е в достатъчно малък интервал $[a, b]$, то
+$|\varphi'(\xi)| < q < 1$. От Следствие $\implies$ итерационният процес, породен от $\varphi$, е сходящ със скоростта на
+геометрична прогресия $$|x_n - \xi| \le const . q^n$$
+\end{proof}
+\textbf{\underline{Метод на секущите}} \newline
+Геометрична илюстрация: \includegraphics[scale=0.5]{secant.png} \newline\newline
+Формула за последователните приближения: $x_{n+1} = x_n - \frac{f(x_n)}{f(x_{n-1}) - f(x_n)}(x_{n-1} - x_n)$ \newline
+Ред на сходимост: $|x_n - \xi| \le Cq^{r^n}, r = \frac{1 + \sqrt{5}}{2}, \forall n$ \newline\newline
+\textbf{\underline{Метод на Нютон}} \newline
+Геометрична илюстрация: \includegraphics[scale=0.5]{Newton.png} \newline\newline
+Формула за последователните приближения: $x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$ \newline
+Ред на сходимост: $|x_n - \xi| \le Cq^{2^n}, \forall n$ \newline
+
+\section*{Вероятности и статистика}
+
+\subsection*{Дискретни разпределения. Равномерно, биномно, геометрично и Поасоново разпределение. Задачи, в които възникват.
+Моменти – математическо очакване и дисперсия.}
+
+\textbf{\underline{Дефиниция}}
+Нека $\Omega$ е множество и $\mathcal{A}$ е съвкупност от множествата на $\Omega$. Казваме, че $\mathcal{A}$
+е \textbf{сигма алгебра}, ако:
+\begin{itemize}
+    \item $\varnothing \in \mathcal{A}$ и $\Omega \in \mathcal{A}$
+    \item Ако $A \in \mathcal{A}$, то $\overline{A} \in \mathcal{A}$
+    \item Ако $A_1, A_2, ... \in \mathcal{A}$, то $\bigcup\limits_{i=1}^\infty A_i \in \mathcal{A}$ и
+    $\bigcap\limits_{i=1}^\infty A_i \in \mathcal{A}$
+\end{itemize}
+\textbf{\underline{Дефиниция}}
+Вероятността $P$ е функция, дефинирана върху сигма алгебрата $\mathcal{A}$ от подмножества на $\Omega$, която удовлетворява
+аксиомите:
+\begin{itemize}
+    \item \textbf{Неотрицателност}: $P(A) \ge 0$, за всяко събитие $A \in \mathcal{A}$
+    \item \textbf{Нормираност}: $P(\Omega) = 1$
+    \item \textbf{Адитивност}: Ако $AB = \varnothing$, то $P(A \cup B) = P(A) + P(B)$
+    \item \textbf{Монотонност}: За всяко монотонно намаляваща редица $A_1 \supset A_2 \supset ... A_n \supset ...$ клоняща
+    към $\varnothing$ е изпълнено $\lim _{n \to \infty}P(A_n) = 0$
+\end{itemize}
+Нека $X$ е случайна величина. \newline\newline
+\textbf{\underline{Дефиниция}}
+\textbf{Математическо очакване} наричаме числото $$EX = \sum_{j}x_jp_j \hspace{1cm} p_j = P(X = x_j)$$
+\textbf{\underline{Дефиниция}}
+\textbf{Дисперсия} наричаме числото $$DX = E(X - EX)^2 = EX^2 - (EX)^2$$ $\sqrt{DX}$ наричаме \textbf{стандартно отклонение}. \newline\newline
+\textbf{\underline{Свойства}}
+\begin{multicols}{2}
+    \begin{itemize}
+        \item $Ec = c$
+        \item $E(cX) = cEX$
+        \item $E(X + Y) = EX + EY$
+        \item $X \indep Y \implies E(XY) = EXEY$
+        \item $DX \ge 0$
+        \item $Dc = 0$
+        \item $D(cX) = c^2DX$
+        \item $X \indep Y \implies D(X + Y) = DX + DY$
+    \end{itemize}
+\end{multicols}
+\textbf{\underline{Дефиниция}}
+Нека $H_j, j = 1, 2, ...$ е някое разлагане на $\Omega$, а $x_j$ са произволни различни реални числа.
+\textbf{Дискретна случайна величина} наричаме:
+$$X(\omega) = \sum_{j}x_j\mathbf{I}_{H_j}(\omega)$$ където $\mathbf{I}_{H_j}(\omega)$ е индикатора на
+множеството $H_j$ \newline\newline
+\textbf{\underline{Дефиниция}}
+\textbf{Разпределение на ДСВ} наричаме таблицата: \newline\newline
+\begin{tabularx}{0.8\textwidth} { 
+    | >{\centering\arraybackslash}X 
+    | >{\centering\arraybackslash}X 
+    | >{\centering\arraybackslash}X 
+    | >{\centering\arraybackslash}X
+    | >{\centering\arraybackslash}X
+    | >{\centering\arraybackslash}X |}
+   \hline
+   $X$ & $x_1$ & $x_2$ & $...$ & $x_n$ & $...$ \\
+   \hline
+   $P$ & $p_1$ & $p_2$ & $...$ & $p_n$ & $...$  \\
+   \hline
+\end{tabularx} \newline\newline
+където $x_i$ са стойностите на сл.в. които могат да бъдат краен или изброим брой, а $p_j = P(X = x_j)$ са вероятностите с които
+сл.в. взема съответните стойности \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $X$ е ДСВ, чийто стойности са цели положителни числа. \textbf{Пораждаща функция} на $X$ наричаме:
+$$g_X(s) = \sum_{k=0}^{\infty}P(X = k)s^k$$
+\textbf{\underline{Твърдение}} \newline
+Нека $X$ и $Y$ са независими сл.в. и $\exists g_X(s), \exists g_Y(s)$. Тогава
+$$g_{X+Y}(s) = g_X(s)g_Y(s)$$
+\textbf{\underline{Твърдение}} \newline
+Нека сл.в. $X$ е неотрицателна, целочислена и $\exists EX$. Тогава $$EX = g'_X(1)$$
+\textbf{\underline{Твърдение}} \newline
+Нека сл.в. $X$ е неотрицателна, целочислена и $\exists DX$. Тогава $$DX = g''_X(1) + g'_X(1) - (g'_X(1))^2$$
+\textbf{\underline{Дефиниция} (Равномерно разпределение)} \newline\newline
+Казваме, че сл.в. $X$ е равномерно разпределена с параметри $a$ и $b$, т.е. $$X \in U(a, b) \iff P(X = k) = \frac{1}{b - a + 1}$$
+$$EX = \frac{a + b}{2}$$
+$$DX = \frac{(b - a + 1)^2 - 1}{12}$$
+Възниква в задачи, при които търсим брой при извършване на $n$ независими опита, всеки от които с еднаква вероятност $\frac{1}{n}$ \newline\newline
+\textbf{\underline{Дефиниция} (Биномно разпределение)} \newline\newline
+Казваме, че сл.в. $X$ е биномно разпределена с параметри $n$ и $p$ т.е. $$X \in Bi(n p) \iff P(X = k) = C_{n}^kp^k(1 - p)^{n-k} =
+\binom{n}{k}p^kq^{n-k}$$
+$$EX = E(X_1 + ... + X_n) = EX_1 + ... + EX_n = np$$
+$$DX = D(X_1 + ... + X_n) = DX_1 + ... + DX_n = npq$$
+Възниква в задачи, при които търсим брой успехи при извършване на $n$ независими опита, всеки от които с вероятност $p$. \newline\newline
+\textbf{\underline{Дефиниция} (Геометрично разпределение)} \newline\newline
+Казваме, че сл.в. $X$ е геометрично разпределена с параметър $p$, т.е. $$X \in Ge(p) \iff P(X = k) = (1 - p)^{k}p = q^{k}p$$
+$$EX = g_X'(1) = \frac{pq}{(1 - qs)^2}\vert_{s=1} = \frac{q}{p}$$
+$$DX = g_X''(1) + g_X'(1) - (g_X'(1))^2 = \frac{2q^2}{p^2} + \frac{q}{p} - \frac{q^2}{p^2} = \frac{q}{p^2}$$
+Възниква в задачи, при които търсим брой неуспехи до първи успех, всеки от които с вероятност $p$. \newline\newline
+\textbf{\underline{Дефиниция} (Поасоново разпределение)} \newline
+Казваме, че сл.в. $X$ е Поасоново разпределена с параметър $\lambda$, т.е. $$X \in Po(\lambda) \iff P(X = k) =
+\frac{\lambda^ke^{-\lambda}}{k!} \hspace{1cm} k = 0,1,2..., \lambda > 0 \text{ е константа }$$
+$$EX = g_X'(1) = \lambda e^{\lambda(s-1)}\vert_{s=1} = \lambda$$
+$$DX = g_X''(1) + g_X'(1) - (g_X'(1))^2 = \lambda^2 + \lambda - \lambda^2 = \lambda$$
+Възниква в задачи, при които търсим среден брой наблюдавани независими събития за единица време - $\lambda$. \newline\newline
+\end{document}
