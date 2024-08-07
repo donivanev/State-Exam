@@ -1,6 +1,7 @@
 #include <iostream>
 using namespace std;
 
+// O(n)
 int linearSearch(int arr[], int n, int x)
 {
     for(int i = 0; i < n; ++i) {
@@ -12,6 +13,7 @@ int linearSearch(int arr[], int n, int x)
     return -1;
 }
 
+// O(logn)
 int binarySearch(int arr[], int n, int x)
 {
     int left = 0, right = n;
@@ -29,6 +31,7 @@ int binarySearch(int arr[], int n, int x)
     return -1;
 }
 
+// O(n^2)
 void bubbleSort(int arr[], int n)
 {
     for (int i = 0; i < n - 1; i++)
@@ -44,6 +47,7 @@ void bubbleSort(int arr[], int n)
     }
 }
 
+// O(n^2)
 void selectionSort(int arr[], int n)
 {
     for (int i = 0; i < n - 1; i++) {
@@ -62,6 +66,7 @@ void selectionSort(int arr[], int n)
     }
 }
 
+// O(n^2)
 void insertionSort(int arr[], int n)
 {
     for (int i = 1; i < n; i++) {

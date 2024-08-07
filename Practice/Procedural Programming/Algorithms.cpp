@@ -1,6 +1,12 @@
 #include <iostream>
 using namespace std;
 
+int swap(int& a, int& b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
 int toKbasedSystem(int n, int k) {
     int s = 0, power = 0;
 
@@ -14,10 +20,26 @@ int toKbasedSystem(int n, int k) {
     return s;
 }
 
-int swap(int* a, int* b) {
-    int helper = *a;
-    *a = *b;
-    *b = helper;
+int sumOfDigits(int num) {
+    int sum = 0;
+
+    while (num != 0) {
+        sum += num % 10;
+        num /= 10;
+    }
+
+    return sum;
+}
+
+int reverseNumber(int num) {
+    int reversed = 0;
+
+    while (num != 0) {
+        reversed = reversed * 10 + num % 10;
+        num /= 10;
+    }
+
+    return reversed;
 }
 
 int gcd(int a, int b) {
@@ -38,18 +60,6 @@ bool isPrime(int n) {
 	}
 
 	return true;
-}
-
-int minMax(int arr[], int n) {
-    int min = INT32_MAX; // max
-
-    for (int i = 0; i < n; i++) {
-        if (arr[i] > min) { // max
-            min = arr[i]; // max
-        }
-    }
-
-    return min; //max
 }
 
 int main() {

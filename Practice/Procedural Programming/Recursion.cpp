@@ -1,13 +1,19 @@
 #include <iostream>
 using namespace std;
 
-double sum(int n) {
-	if (n == 0) return 0;
+double sum(int arr[], int n) {
+	if (n <= 0) return 0;
+	return sum(arr, n - 1) + arr[n - 1];
+}
 
-	double a;
-	cin >> a;
+int power(int base, int exp) {
+    if (exp == 0) return 1;
+    return base * power(base, exp - 1);
+}
 
-	return sum(--n) + a;
+int gcd(int a, int b) {
+    if (b == 0) return a;
+    return gcd(b, a % b);
 }
 
 int factorial(int n) {

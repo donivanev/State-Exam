@@ -7,19 +7,28 @@ void swap(int *a, int *b) {
     *b = temp;
 }
 
-long max(long* pmax, int n) {
-	if (n == 0) {
-		return *pmax;
-	}
+int findMax(int* arr, int size) {
+    int max = *arr;
 
-	long a;
-	cin >> a;
+    for (int i = 1; i < size; ++i) {
+        if (*(arr + i) > max) {
+            max = *(arr + i);
+        }
+    }
 
-	if (*pmax < a) {
-		*pmax = a;
-	}
+    return max;
+}
 
-	return max(pmax, --n);
+void reverseArray(int* arr, int size) {
+    int* start = arr, *end = arr + size - 1;
+
+    while (start < end) {
+        int temp = *start;
+        *start = *end;
+        *end = temp;
+        ++start;
+        --end;
+    }
 }
 
 int main() {

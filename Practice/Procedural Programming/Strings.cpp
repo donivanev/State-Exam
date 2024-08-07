@@ -28,7 +28,13 @@ void strCpy(char* copy, const char* src) {
 }
 
 void strcpyPtr(char* dest, const char* src) {
-    while (*dest++ = *src++) ;
+    while (*src) {
+        *dest++ = *src++;
+    }
+    
+    *dest = '\0';
+
+    //while (*dest++ = *src++) ;
 }
 
 char* strduplicate(char* copyStr, char* str) {
