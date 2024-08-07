@@ -9,33 +9,42 @@ public:
     virtual void start() const = 0;
 
     // Pure virtual function to get the type of server
-    virtual string getType() const = 0;
+    virtual const char* getType() const = 0;
 };
 
 class WebServer : public Server {
     private:
-        string ipAddress;
+        char* ipAddress;
         int port;
 
     public:
-        WebServer(const string& ip, int p) : ipAddress(ip), port(p) {}
+        WebServer(const char* ip, int p) : port(p) {
+            ipAddress = new char[strlen(ip) + 1];
+            strcpy(ipAddress, ip);
+        }
+
+        ~WebServer() {
+            delete[] ipAddress;
+        }
 
         void start() const override {
             cout << "Starting the web server at " << ipAddress << ":" << port << endl;
         }
 
-        string getType() const override {
+        const char* getType() const override {
             return "Web Server";
         }
 
         // Getter for IP address
-        string getIpAddress() const {
+        const char* getIpAddress() const {
             return ipAddress;
         }
 
         // Setter for IP address
-        void setIpAddress(const string& ip) {
-            ipAddress = ip;
+        void setIpAddress(const char* ip) {
+            delete[] ipAddress;
+            ipAddress = new char[strlen(ip) + 1];
+            strcpy(ipAddress, ip);
         }
 
         // Getter for port
@@ -51,28 +60,33 @@ class WebServer : public Server {
 
 class DatabaseServer : public Server {
     private:
-        string dbName;
+        char* dbName;
         int port;
 
     public:
-        DatabaseServer(const string& db, int p) : dbName(db), port(p) {}
+        DatabaseServer(const char* db, int p) : port(p) {
+            dbName = new char[strlen(db) + 1];
+            strcpy(dbName, db);
+        }
 
         void start() const override {
             cout << "Starting the database server for " << dbName << " at port " << port << endl;
         }
 
-        string getType() const override {
+        const char* getType() const override {
             return "Database Server";
         }
 
         // Getter for database name
-        string getDbName() const {
+        const char* getDbName() const {
             return dbName;
         }
 
         // Setter for database name
-        void setDbName(const string& db) {
-            dbName = db;
+        void setDbName(const char* db) {
+            delete[] dbName;
+            dbName = new char[strlen(db) + 1];
+            strcpy(dbName, db);
         }
 
         // Getter for port

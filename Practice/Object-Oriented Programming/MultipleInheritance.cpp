@@ -9,7 +9,7 @@ class Device {
         virtual void start() const = 0;
 
         // Pure virtual function to get the type of device
-        virtual string getType() const = 0;
+        virtual const char* getType() const = 0;
 };
 
 class Phone : virtual public Device {
@@ -18,7 +18,7 @@ class Phone : virtual public Device {
             cout << "Starting the phone!" << endl;
         }
 
-        string getType() const override {
+        const char* getType() const override {
             return "Phone";
         }
 };
@@ -29,7 +29,7 @@ class Laptop : virtual public Device {
             cout << "Starting the laptop!" << endl;
         }
 
-        string getType() const override {
+        const char* getType() const override {
             return "Laptop";
         }
 };
@@ -42,7 +42,7 @@ class Smartphone : public Phone, public Laptop {
             Laptop::start();
         }
 
-        string getType() const override {
+        const char* getType() const override {
             return "Smartphone";
         }
 };

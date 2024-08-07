@@ -9,7 +9,7 @@ class Shape {
         virtual double area() const = 0;
 
         // Pure virtual function to get the type of shape
-        virtual string getType() const = 0;
+        virtual const char* getType() const = 0;
 };
 
 class Triangle : public Shape {
@@ -26,7 +26,7 @@ class Triangle : public Shape {
         }
 
         //Polymorphism
-        string getType() const override {
+        const char* getType() const override {
             return "Triangle";
         }
 };
@@ -45,7 +45,7 @@ class Rectangle : public Shape {
         }
 
         //Polymorphism
-        string getType() const override {
+        const char* getType() const override {
             return "Rectangle";
         }
 };

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 using namespace std;
 
 // Abstract base class for files
@@ -16,53 +17,69 @@ public:
     virtual void close() const = 0;
 
     // Pure virtual function to get the type of file
-    virtual string getType() const = 0;
+    virtual const char* getType() const = 0;
 };
 
 class TextFile : public File {
     private:
-        string fileName;
+        char* filename;
+        int size;
 
     public:
-        TextFile(const string& name) : fileName(name) {}
+        TextFile(const char* name) : size(size) {
+            filename = new char[strlen(name) + 1];
+            strcpy(filename, name);
+        }
+
+        ~TextFile() {
+            delete[] filename;
+        }
 
         void open() const override {
-            cout << "Opening text file: " << fileName << endl;
+            cout << "Opening text file: " << filename << endl;
         }
 
         void read() const override {
-            cout << "Reading text file: " << fileName << endl;
+            cout << "Reading text file: " << filename << endl;
         }
 
         void close() const override {
-            cout << "Closing text file: " << fileName << endl;
+            cout << "Closing text file: " << filename << endl;
         }
 
-        string getType() const override {
+        const char* getType() const override {
             return "Text File";
         }
 };
 
 class AudioFile : public File {
     private:
-        string fileName;
+        char* filename;
+        int size;
 
     public:
-        AudioFile(const string& name) : fileName(name) {}
+        AudioFile(const char* name) : size(size) {
+            filename = new char[strlen(name) + 1];
+            strcpy(filename, name);
+        }
+
+        ~AudioFile() {
+            delete[] filename;
+        }
 
         void open() const override {
-            cout << "Opening audio file: " << fileName << endl;
+            cout << "Opening audio file: " << filename << endl;
         }
 
         void read() const override {
-            cout << "Playing audio file: " << fileName << endl;
+            cout << "Playing audio file: " << filename << endl;
         }
 
         void close() const override {
-            cout << "Stopping audio file: " << fileName << endl;
+            cout << "Stopping audio file: " << filename << endl;
         }
 
-        string getType() const override {
+        const char* getType() const override {
             return "Audio File";
         }
 };
