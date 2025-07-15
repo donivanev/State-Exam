@@ -1,0 +1,104 @@
+#include <iostream>
+#include <cstring>
+using std::cout;
+using std::endl;
+
+// Abstract base class for files
+class File {
+public:
+    virtual ~File() = default;
+
+    // Pure virtual function to open the file
+    virtual void open() const = 0;
+
+    // Pure virtual function to read the file
+    virtual void read() const = 0;
+
+    // Pure virtual function to close the file
+    virtual void close() const = 0;
+
+    // Pure virtual function to get the type of file
+    virtual const char* getType() const = 0;
+};
+
+class TextFile : public File {
+    private:
+        char* filename;
+        int size;
+
+    public:
+        TextFile(const char* name) : size(0) {
+            filename = new char[strlen(name) + 1];
+            strcpy(filename, name);
+        }
+
+        ~TextFile() {
+            delete[] filename;
+        }
+
+        void open() const override {
+            cout << "Opening text file: " << filename << endl;
+        }
+
+        void read() const override {
+            cout << "Reading text file: " << filename << endl;
+        }
+
+        void close() const override {
+            cout << "Closing text file: " << filename << endl;
+        }
+
+        const char* getType() const override {
+            return "Text File";
+        }
+};
+
+class AudioFile : public File {
+    private:
+        char* filename;
+        int size;
+
+    public:
+        AudioFile(const char* name) : size(0) {
+            filename = new char[strlen(name) + 1];
+            strcpy(filename, name);
+        }
+
+        ~AudioFile() {
+            delete[] filename;
+        }
+
+        void open() const override {
+            cout << "Opening audio file: " << filename << endl;
+        }
+
+        void read() const override {
+            cout << "Playing audio file: " << filename << endl;
+        }
+
+        void close() const override {
+            cout << "Stopping audio file: " << filename << endl;
+        }
+
+        const char* getType() const override {
+            return "Audio File";
+        }
+};
+
+void processFile(const File& file) {
+    cout << "File type: " << file.getType() << endl;
+    file.open();
+    file.read();
+    file.close();
+}
+
+int main() {
+
+    TextFile t("example.txt");
+    AudioFile a("song.mp3");
+
+    processFile(t);
+    processFile(a);
+
+    return 0;
+}

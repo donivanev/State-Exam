@@ -1,0 +1,119 @@
+for(int i = 0; i < n; i++) // O(n)
+for(int i = 0; i < n; i = i + 2) // O(n)
+for(int i = n; i > 0; i--) // O(n)
+
+for(int i = 1; i < n; i = i * 2) // O(log₂n)
+for(int i = 1; i < n; i = i * 3) // O(log₃n)
+for(int i = n; i > 1; i = i / 2) // O(log₂n)
+
+// Types of time functions
+
+O(1) - constant // f(n) = 2, f(n) = 5, f(n) = 100
+O(logn) - logarithmic
+O(n) - linear // f(n) = 2n + 3, f(n) = n / 500 + 6
+O(n²) - quadratic
+O(n³) - cubic
+O(2ⁿ) - exponential
+O(nⁿ) - exponential
+
+// Compare class of functions
+
+1 < logn < √n < n < nlogn < n² < n³ < ... < 2ⁿ < 3ⁿ < nⁿ
+
+// Asymptotic notation
+
+O - upper bound, f(n) = O(g(n)) <=> ∃c, n : f(n) ≤ c * g(n), ∀n ≥ n₀
+θ - average bound, f(n) = θ(g(n)) <=> ∃c₁, c₂, n : c₁ * g(n) ≤ f(n) ≤ c₂ * g(n), ∀n ≥ n₀
+Ω - lower bound, f(n) = Ω(g(n)) <=> ∃c, n : f(n) ≥ c * g(n), ∀n ≥ n₀
+
+// Properties
+
+1. if f(n) is O(g(n)) then a * f(n) is O(g(n))
+2. if f(n) is given then f(n) is O(f(n)) (reflexive)
+3. if f(n) is θ(g(n)) then g(n) is θ(h(n)) (symmetric, only for theta)
+4. if f(n) is O(g(n)) and g(n) is O(h(n)) then f(n) = O(h(n)) (transitive)
+5. if f(n) is O(g(n)) then g(n) is Ω(f(n)) (transpose symmetric)
+
+// Recurrence relations
+
+// T(n) = T(n - 1) + 1 => O(n)
+// T(n) = T(n - 1) + n => O(n²)
+// T(n) = T(n - 1) + logn => O(nlogn)
+// T(n) = T(n - 1) + n² => O(n³)
+// T(n) = T(n - 2) + 1 => O(n)
+// T(n) = T(n - 100) + n => O(n²)
+// T(n) = 2T(n - 1) + 1 => O(2ⁿ)
+
+void f(n) { // T(n)
+    if (n > 0) { // 1
+        print n // 1
+        f(n - 1) // T(n - 1)
+    }
+}
+
+{
+    T(0) = 1 , n = 0
+    T(n) = T(n - 1) + 1 , n > 0
+}
+
+=> T(n - 1) = T(n - 2) + 1
+=> T(n) = [T(n - 2) + 1] + 1 = T(n - 2) + 2
+...
+=> T(n) = T(n - k) + k
+
+Assume that n - k = 0 => n = k => T(n) = T(0) + n = 1 + n = θ(n)
+
+// -----------------------
+
+void f(n) { // T(n)
+    if (n > 0) { // 1
+        for (i = 0; i < n; i++) { // n + 1
+            print n // n
+        }
+
+        f(n - 1) // T(n - 1)
+    }
+}
+
+{
+    T(0) = 1 , n = 0
+    T(n) = T(n - 1) + n , n > 0
+}
+
+θ(n²)
+
+// -----------------------
+
+void f(n) { // T(n)
+    if (n > 0) { // 1
+        for (i = 0; i < n; i++) { // logn
+            print n // logn
+        }
+
+        f(n - 1) // T(n - 1)
+    }
+}
+
+{
+    T(0) = 1 , n = 0
+    T(n) = T(n - 1) + logn , n > 0
+}
+
+θ(nlogn)
+
+// -----------------------
+
+void f(n) { // T(n)
+    if (n > 0) { // 1
+        print n // 1
+        f(n - 1) // T(n - 1)
+        f(n - 1) // T(n - 1)
+    }
+}
+
+{
+    T(0) = 1 , n = 0
+    T(n) = 2T(n - 1) + 1 , n > 0
+}
+
+θ(2ⁿ)

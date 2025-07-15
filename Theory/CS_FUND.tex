@@ -1,0 +1,801 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathabx}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{mathtools}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{forest}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+\usepackage[bulgarian]{babel}
+\graphicspath{ {./images/} }
+
+\begin{document}
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour}, commentstyle=\color{mGreen}, keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray}, stringstyle=\color{mPurple}, basicstyle=\ttfamily ,breakatwhitespace=false, 
+    breaklines=true, captionpos=b, keepspaces=true, numbers=left, numbersep=5pt, showspaces=false, showstringspaces=false,
+    showtabs=false, tabsize=2, language=C, texcl=true, mathescape=true
+}
+
+\newcommand{\cplain}[1]{\textnormal{\textcolor{black}{\texttt{#1}}}}
+
+\renewcommand{\proofname}{\textbf{Доказателство:}\vspace{2em}}
+\newcommand*\circled[1]{\tikz[baseline=(C.base)]\node[draw,circle,inner sep=1.2pt,line width=0.2mm,](C) {\small #1};\!}
+
+\definecolor{lightBlue}{HTML}{1E90FF}
+
+\title{Теми за Държавен Изпит}
+\author{Д. Иванов, КН}
+\maketitle
+
+\section*{\centering \color{lightBlue}{Дискретни структури}}
+
+\subsection*{\color{lightBlue}{1. Множества. Декартово произведение. Релации. Функции.}}
+
+\textbf{\underline{Аксиоми} (Цермело-Френкел)}
+\begin{itemize}
+    \item \textbf{за обема}: $\forall x (x \in A \iff x \in B) \implies A = B$
+    \item \textbf{за отделянето}: $X' = \{x \hspace{0.1cm} | \hspace{0.1cm} x \in X, \pi(x)\}$ е множество, където $\pi(x)$ е свойство, чрез което се отделят елементи от $X$
+    \item \textbf{за степенното множество}: $\forall X \hspace{0.1cm} \exists \mathcal{P}(X) : \mathcal{P} = \{A \hspace{0.1cm} | \hspace{0.1cm} A \subseteq X\}$
+    \item \textbf{за индукцията}: $X = <X_0, \mathcal{F}>$ е множество, където $X_0 \neq \varnothing$, а $\mathcal{F}$ е
+    множество от операции, чрез които се изграждат нови елементи на $X$
+\end{itemize}
+\textbf{\underline{Математическа индукция}} \newline
+Метод за доказване на твърдения за индуктивно дефинирани множества. Схема на доказателство по индукция: \newline\newline
+\textbf{Теорема}\newline
+За всеки елемент $x$ на индуктивно дефинирано множество $X$ е в сила $\pi(x)$
+    \begin{itemize}
+        \item База: За всеки базов елемент $x_0 \in X_0$ проверяваме верността на $\pi(x_0)$.
+        \item Индукционно предположение: Допускаме, че $\pi(x)$ е в сила за всеки елемент $x$, включен до определен
+        момент в множеството $X$.
+        \item Индукционна стъпка: Показваме, че при направеното предположение $\pi(y)$ също е в сила, $\forall y \in X$
+        построен с помощта на операциите от $\mathcal{F}$.
+        \item Заключение: $\pi$ е в сила за всеки елемент на множеството $X$.
+    \end{itemize}
+\textbf{Основни операции} върху множества:
+\begin{itemize}
+    \item Обединение: $A \cup B = \{x \hspace{0.1cm} | \hspace{0.1cm} x \in A \text{ или } x \in B\}$
+    \item Сечение: $A \cap B = \{x \hspace{0.1cm} | \hspace{0.1cm} x \in A \text{ и } x \in B\}$
+    \item Разлика: $A \backslash B = \{x \hspace{0.1cm} | \hspace{0.1cm} x \in A \text{ и } x \notin B\}$
+    \item Симетрична разлика: $A \triangle B = \{x | (x \in A \text{ и } x \notin B) \text{ или } (x \notin A \text{ и } x \in B)\}$
+    \item Допълнение: $\overline{A} = \{x \hspace{0.1cm} | \hspace{0.1cm} x \in U \text{ и } x \notin A\}$
+\end{itemize}
+\textbf{Свойства на операциите} върху множества:
+\begin{itemize}
+    \item Идемпотентност: $A \cup A = A, A \cap A = A$
+    \item Комутативност: $A \cup B = B \cup A, A \cap B = B \cap A, A \triangle B = B \triangle A$
+    \item Асоциативност: $(A \cup B) \cup C = A \cup (B \cup C), (A \cap B) \cap C = A \cap (B \cap C), (A \triangle B)
+    \triangle C = A \triangle (B \triangle C)$
+    \item Дистрибутивност: $(A \cup B) \cap C = (A \cap C) \cup (B \cap C), (A \cap B) \cup C = (A \cup C) \cap (B \cup C)$
+    \item Свойства на празното и универсалното множество: $A \cup \varnothing = A, A \cap \varnothing = \varnothing, A \cup U = U, A \cap U = A$
+    \item Свойства на допълнението: $A \cup \overline{A} = U, A \cap \overline{A} = \varnothing, \overline{\overline{A}} = A$
+    \item Закони на Де Морган: $\overline{A \cup B} = \overline{A} \cap \overline{B}, \overline{A \cap B} = \overline{A} \cup \overline{B}$
+\end{itemize}
+\textbf{\underline{Дефиниция}} Нека $a$ и $b$ са произволни елементи. Множеството $(a, b) = \{a, \{a, b\}\}$ наричаме \textbf{наредена двойка} от елементите
+$a$ и $b$. \newline\newline
+\textbf{\underline{Дефиниция}} Нека $A$ и $B$ са множества. Множеството $A \bigtimes B = \{(a, b) \hspace{0.1cm} | \hspace{0.1cm} a \in A, b \in B\}$
+наричаме \textbf{Декартово произведение} на множествата $A$ и $B$. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $A_1,...,A_n$ са множества, $n \in \mathbb{N}$. \textbf{Наредена $n$-орка} наричаме подредена последователност $(a_1, ..., a_n)$, където $a_i \in A_i,
+\forall i = 1,...,n$. Множеството $A_1 \bigtimes ... \bigtimes A_n = \{(a_1, ..., a_n) \hspace{0.1cm} | \hspace{0.1cm} a_i \in A_i \hspace{0.1cm} \forall
+i = 1,...,n\}$ наричаме \textbf{обобщено Декартово произведение} на множествата $A_1, ..., A_n$. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $A_1,...,A_n$ са множества, $n \in \mathbb{N}$. Всяко $R \subseteq A_1 \bigtimes ... \bigtimes A_n$ наричаме
+\textbf{$n$-местна релация} над декартовото произведение $A_1 \bigtimes ... \bigtimes A_n$.
+При $n = 2$, релацията наричаме двуместна или просто \textbf{релация}. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $R \subseteq A \bigtimes A$ е релация. Казваме, че $R$ е:
+\begin{itemize}
+    \item \textbf{Рефлексивна} - ако $\forall a \in A, (a, a) \in R$
+    \item \textbf{Симетрична} - ако $\forall a, b \in A, a \neq b, (a, b) \in R \implies (b, a) \in R$
+    \item \textbf{Транзитивна} - ако $\forall a, b, c \in A, (a, b) \in R \hspace{0.1cm} \& \hspace{0.1cm} (b, c) \in R \implies (a, c) \in R$
+    \item \textbf{Антирефлексивна} - ако $\forall a \in A, (a, a) \notin R$
+    \item \textbf{Антисиметрична} - ако $\forall a, b \in A, a \neq b, (a, b) \in R \implies (b, a) \notin R$
+    \item \textbf{Силно антисиметрична} - ако $\forall a, b \in A, a \neq b$, точно едно от $(a, b) \in R$ или $(b, a) \in R$ е в сила
+\end{itemize}
+\textbf{\underline{Дефиниция}}
+Нека $R \subseteq A \bigtimes A$ е релация. Казваме, че $R$ е \textbf{релация на еквивалентност}, ако е рефлексивна, симетрична и транзитивна. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $R \subseteq A \bigtimes A$ е релация на еквивалентност и $a \in A$. Множеството $[a] = \{b \hspace{0.1cm} | \hspace{0.1cm} b \in A, aRb\}$ наричаме
+\textbf{клас на еквивалентност} на $a$ спрямо $R$. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $R \subseteq A \bigtimes A$ е релация. Казваме, че $R$ е \textbf{частична наредба}, ако е рефлексивна, антисиметрична и транзитивна. \newline\newline
+\textbf{\underline{Диаграми на Хассе}}
+\begin{center}
+    \includegraphics[scale=0.1]{../images/Inclusion_ordering.svg.png}
+\end{center}
+\textbf{\underline{Дефиниция}}
+Нека $R \subseteq A \bigtimes A$ е релация. Казваме, че $R$ е \textbf{пълна(линейна)} наредба, ако е рефлексивна, силно антисиметрична и транзитивна. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $R \subseteq A \bigtimes A$ е релация. Казваме, че елементът $a \in A$ е \textbf{минимален} в $R$, ако $\nexists b \in A, b \neq a$ такъв, че $bRa$. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $R \subseteq A \bigtimes A$ е релация. Казваме, че елементът $a \in A$ е \textbf{максимален} в $R$, ако $\nexists b \in A, b \neq a$ такъв, че $aRb$. \newline\newline
+\textbf{\underline{Алгоритъм} (топологично сортиране)} \newline\newline
+\underline{Дадено}: Множество $A = \{a_1, ..., a_n\}$ и частична наредба $R \subseteq A \bigtimes A$. \newline
+\underline{Резултат}: Наредена $n$-орка $(a_{i_1}, ..., a_{i_n})$ от различните елементи на $A$, определяща пълна наредба
+$R' \subseteq A \bigtimes A, R \subseteq R'$ така, че $\forall m, k \in \{1, 2, ... n\}, m \le k \rightarrow (a_{i_m}, a_{i_k}) \in R'$. \newline
+\underline{Процедура}: \begin{enumerate}[label=\protect\circled{\arabic*}]
+    \item $T = R$ (текуща релация), $M = A$ (неподредени елементи), $j = 1$
+    \item Намираме $a_{i_j}$ - минимален в $M$ за релацията $T$
+    \item $T = T \hspace{0.1cm} \backslash \hspace{0.1cm} \{(a_{i_j}, a_l) \hspace{0.1cm} | \hspace{0.1cm} (a_{i_j}, a_l) \in T\}, \hspace{0.1cm} M = M \hspace{0.1cm}
+    \backslash \hspace{0.1cm} \{a_{i_j}\}, \hspace{0.1cm} j = j + 1$
+    \item Ако $M \neq \varnothing$ преминаваме към $\circled{2}$, в противен случай - край.
+\end{enumerate}
+\textbf{\underline{Дефиниция}}
+Нека $f \subseteq X \bigtimes Y$ е релация. Казваме, че $f$ е \textbf{частична функция}, ако $\forall a \in X \hspace{0.1cm} \exists$ не повече от 
+едно $b \in Y$ такова, че $(a, b) \in f$ \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $f \subseteq X \bigtimes Y$ е релация. Казваме, че $f$ е \textbf{тотална функция}, ако $\forall a \in X \hspace{0.1cm} \exists$ точно
+едно $b \in Y$ такова, че $(a, b) \in f$ \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $f$ е функция. Казваме, че $f$ е \textbf{инекция}, ако $f(x_1) \neq f(x_2), \forall x_1 \neq x_2 \in X$. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $f$ е функция. Казваме, че $f$ е \textbf{сюрекция} на $X$ върху $Y$, ако $\forall b \in Y \hspace{0.1cm} \exists a \in X$ такова, че $f(a) = b$. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $f : X \rightarrow Y$  е тотална функция. Казваме, че $f$ е \textbf{биекция}, ако е едновременно инекция и сюрекция. \newline\newline
+\textbf{\underline{Дефиниция}}
+Казваме, че множество $A$ е \textbf{крайно}, ако $A = \varnothing$ или $\exists n \in \mathbb{N}, n \ge 1$ и биекция $f : A \rightarrow \{1, 2, ..., n\}$. \newline\newline
+\textbf{\underline{Дефиниция}}
+\textbf{Кардиналност} на множество $A$ наричаме броя на елементите му, за които при $A = \varnothing, |A| = 0$ и при $A \neq \varnothing, |A| = n$. \newline\newline
+\textbf{\underline{Дефиниция}}
+Казваме, че множеството $A$ е \textbf{изброимо безкрайно}, ако $\exists \text { биекция } f : A \rightarrow \mathbb{N}$. Ако множеството $A$ е крайно или изброимо
+безкрайно казваме, че то \textbf{изброимо}. \newline\newline
+\textbf{\underline{Принцип на Дирихле}}
+Нека $X$ и $Y$ са крайни множества и $|X| > |Y|$. Тогава $\forall$ тотална функция $f : X \rightarrow Y$ $\exists x_1 \neq x_2 \in X$ такива, че $f(x_1) = f(x_2)$.
+
+\subsection*{\color{lightBlue}{2. Основни комбинаторни принципи и конфигурации. Рекурентни уравнения.}}
+
+\textbf{\underline{Теорема} (принцип на Дирихле)} \newline
+Нека $A$ е множество с $n$ елемента (предмета), а $B$ е множество с $m$ елемента (чекмеджета) и $n > m$. Както и да поставим
+всички предмети в чекмеджетата, поне в едно чекмедже ще има поне два предмета. \newline\newline
+\textbf{\underline{Теорема} (принцип на биекцията)} \newline
+Нека $A$ и $B$ са крайни множества и $|A| = n, |B| = m$. Съществува биекция $f : A \rightarrow B \iff n = m$ \newline\newline
+\textbf{\underline{Теорема} (принцип на събирането)} \newline
+Нека $A$ е крайно множество и $\mathcal{R} = \{S_1, ..., S_n\}$ е разбиване на $A$. Тогава $|A| = \sum_{i = 1}^{k}|S_i|$ \newline\newline
+\textbf{\underline{Теорема} (принцип на изваждането)} \newline
+Нека $A$ е крайно множество и $B,C \subseteq A$, като $B = A \backslash C$. Тогава $|B| = |A| - |C|$ \newline\newline
+\textbf{\underline{Теорема} (принцип на умножението)} \newline
+Нека $A$ и $B$ са крайни множества и $|A| = n, |B| = m$. Тогава $|A \bigtimes B| = |A| . |B| = nm$ \newline\newline
+\textbf{\underline{Теорема} (принцип на делението)} \newline
+Нека $A$ и $C$ са крайни множества и $B = A \bigtimes C$, $|C| \neq 0$. Тогава $|A| = \frac{|B|}{|C|}$ \newline\newline
+\textbf{\underline{Теорема} (принцип за включване и изключване)} \newline
+Нека $A$ е крайно множество и $A_1, ..., A_n \subseteq A$. Тогава:
+$$|\bigcup^n_{i=1} A_i| = \sum_{1 \leq i \leq n}|A_i| - \sum_{1 \leq i \leq j \leq n}|A_i \cap A_j| + ... + (-1)^{n-1}|A_1 \cap ... \cap A_n|$$
+\textbf{\underline{Комбинаторни конфигурации с наредба и повторение}} \newline\newline
+Нека $0 < m \in \mathbb{Z}$ и $\mathcal{K}_{\text{н,п}}(n, m)$ е множеството от всички наредени $m$-орки с повторение, съставени
+от $n$ различни елемента. Всеки елемент може да участва произволен брой пъти. Тогава:
+$$|\mathcal{K}_{\text{н,п}}(n, m)| = n^m$$
+\textbf{\underline{Комбинаторни конфигурации с наредба и без повторение}} \newline\newline
+Нека $1 \le m \le n$ и $\mathcal{K}_{\text{н}}(n, m)$ е множеството от наредените $m$-орки без повторение, образувани от $n$
+елемента. Според \textbf{принципа за умножение} на първо място имаме $n$ избора, на второ - $n - 1$,
+на трето - $n - 2$ и така разсъждавайки индуктивно, получаваме формулата за броя на конфигурациите с наредба и без повторение
+$\mathcal{K}_{\text{н}}(n, m) = n(n - 1)...(n - m + 1)$. Такива конфигурации се наричат \textbf{вариации} на $n$ елемента от $m$-ти клас и се означават с $V_n^m$\newline
+При $m = n$, комбинаторната конфигурация се нарича \textbf{пермутация} и $\mathcal{K}_{\text{н}}(n, n) = |P_n| = n(n - 1)...2.1 = n!$ \newline\newline
+\textbf{\underline{Комбинаторни конфигурации без наредба и без повторение}} \newline\newline
+Нека $n > 0, 0 \le m \le n$ и $\mathcal{K}(n, m)$ е множеството от ненаредените $m$-орки, без повторение, образувани от $n$ елемента. Такива конфигурации се наричат \textbf{комбинации} на $n$ елемента от $m$-ти клас и се
+означават с $C_n^m$. Използваме \textbf{принципа на делението}, за да намерим броя на комбинациите на $n$ елемента от $m$-ти клас.
+Ако вместо ненаредените $m$-орки без повторение разгледаме наредените, то $\mathcal{K}(n, m)$ ще се разшири до
+$\mathcal{K'}(n, m) = \mathcal{K_{\text{н}}}(n, m)$. Тъй като всяка ненаредена $m$-орка в $\mathcal{K'}(n, m)$ ще се среща по толкова
+начина, по колкото можем да подредим $m$ елемента, то тя ще се среща $m!$ пъти. $$\implies |\mathcal{K}(n, m)| = \frac{\mathcal{K_{\text{н}}}
+(n, m)}{m!} = \frac{n(n - 1) ... (n - m + 1)}{m!} = \frac{n!}{m!(n - m)!}$$ Така получения израз означаваме с $\binom{n}{m}$ и
+наричаме \textbf{биномен коефициент}. \newline\newline
+\textbf{\underline{Комбинаторни конфигурации без наредба и с повторение}} \newline
+$...$ \newline\newline
+\textbf{\underline{Теорема} (Нютон)}
+$$(x + y)^n = \sum_{m = 0}^{n}\binom{n}{m}x^my^{n-m} \hspace{0.3cm} \forall n \in \mathbb{N} \hspace{0.2cm} \forall x, y \in \mathbb{R}$$
+\begin{proof}
+При повдигане на бинома $x + y$ на $n$-та степен всеки едночлен от вида $x^my^{n - m}$ ще се получи толкова пъти, по колкото начина
+можем да изберем $m$ множители измежду $n$-те, на които ще поставим $x$, а на останалите $n - m$ поставяме $y$. Броят на тези начини е $\binom{n}{m}$.
+\end{proof}
+В комбинаториката едно тъждество може да бъде доказано както по формален начин, така и по комбинаторен начин, чрез преброяване на
+елементите на подходящо избрана конфигурация по два различни начина. Тази техника е известна като \textbf{принцип на двукратното
+броене}. \newline\newline
+\textbf{\underline{Теорема}}
+$$\binom{n}{m} = \binom{n - 1}{m} + \binom{n - 1}{m - 1} \hspace{0.3cm} n, m \in \mathbb{N}, n > m$$
+\begin{proof}
+Множеството от комбинаторни конфигурации $C^n_m$ с образуващо множество $A, |A| = n$, можем да разбием на две подмножества: $K_1$ - конфигурациите
+несъдържащи елемента $n$ и $K_2$ - съдържащите го. В $K_1$ са $m$-елементните подмножества на множеството от
+първите $n - 1$ елемента на $A$, т.е. $|K_1| = \binom{n - 1}{m}$. Елементите на $K_2$ се получават като към всяко
+$(m - 1)$ - елементно подмножество на множеството от първите $n - 1$ елемента на $A$, добавим $n$-тия елемент, т.е. $|K_2| = \binom{n - 1}{m - 1}$.
+От \textbf{принципа за събирането} $\implies \binom{n}{m} = |\mathcal{K}(n, m)| = |K_1| + |K_2| = \binom{n - 1}{m} + \binom{n - 1}{m - 1}$.
+\end{proof}
+\textbf{\underline{Дефиниция}}
+Нека имаме редица $\tilde{a} = (a_0, a_1, ...)$. Казваме, че тя удовлетворява \textbf{линейно рекурентно отношение} от ред $r$, ако
+$$a_{i+r} = c_1a_{i+r-1} + c_2a_{i+r-2} + ... + c_ra_i, \forall i \in \mathbb{N}$$
+където $c_1, ..., c_r$ са константи, $c_r \neq 0$ и първите $r$ члена $a_0, ..., a_{r-1}$ са дадени. \newline\newline
+\textbf{\underline{Алгоритъм} (решаване на ЛРУ с константни коефициенти)} \newline\newline
+...
+\subsection*{\color{lightBlue}{3. Графи. Дървета. Обхождания на графи.}}
+
+Нека $V = \{v_1, ..., v_n\}$ е крайно множество, елементите на което наричаме върхове и $E = \{e_1, ..., e_m\}$
+е крайно множество, елементите на което наричаме ребра. \newline\newline
+\textbf{\underline{Дефиниция}}
+Функцията $f_G : E \rightarrow V \bigtimes V$, съпоставяща на всяко ребро наредена двойка от върхове, наричаме
+\textbf{краен ориентиран мултиграф}. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $G(V, E, f_G)$ е краен ориентиран мултиграф. Казваме, че $G$ е \textbf{краен ориентиран граф}, ако функцията $f_G $ е такава, че
+$f(e_i) \neq f(e_j), i \neq j$. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $G(V, E)$ е краен ориентиран граф. Казваме, че $G$ е \textbf{краен неориентиран граф} или просто \textbf{граф}, ако релацията
+$E \subseteq V \bigtimes V$ е антирефлексивна и симетрична. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $G(V, E)$ е мултиграф. Казваме, че има \textbf{път} от $v_{i_0}$ до $v_{i_l}$ в $G$ ($v_{i_0} \leadsto v_{i_l}$), ако
+съществува последователност от върхове $v_{i_0}...v_{i_l}$ такава, че $(v_{i_j}, v_{i_{j + 1}}) \in E$ и $v_{i_{j - 1}} \neq v_{i_{j + 1}}, \forall j$. Числото l наричаме
+дължина на пътя. При $v_{i_0} = v_{i_l}$, пътя наричаме \textbf{цикъл}. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $G(V, E)$ е мултиграф. Казваме, че $G$ е \textbf{свързан}, ако $v_i \leadsto v_j \hspace{0.1cm} \forall v_i, v_j \in V$. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $G(V, E)$ е мултиграф. Казваме, че подграфът $G'(V', E')$ е негова \textbf{свързана компонента}, ако:
+\begin{itemize}
+    \item $G'$ е свързан, $V' \subseteq V, E' \subseteq E$
+    \item $G'$ е максимален по включване ($\nexists v \in V \backslash V'$, такъв че $G'\cup \{v\}$ да остане свързан)
+\end{itemize}
+\textbf{\underline{Дефиниция}}
+Свързан граф без цикли наричаме \textbf{дърво}. \newline\newline
+\textbf{\underline{Дефиниция}}
+Граф $D(\{r\}, \{\})$ с един връх $r$ и без ребра наричаме дърво с корен $r$ (\textbf{кореново дърво}). \newline\newline
+\textbf{\underline{Теорема}} \newline
+Всяко кореново дърво е дърво.
+\begin{proof}
+Прилагаме индукция по дефиницията на дърво с корен.
+\begin{itemize}
+    \item Тривиалното кореново дърво $D(\{r\}, \{\})$ е свързан граф $\implies$ е дърво.
+    \item Допускаме, че дървото $D(V, E)$ с корен $r$ е свързан граф без цикли.
+    \item Ще докажем, че дървото $D'(V' = V \cup \{w\}, E' = E \cup \{(u, w)\})$ с корен $r$ е свързан граф без цикли. \newline\newline
+    Нека $v_i, v_j \in V$. Според ИП $D$ е свързан граф $\implies$ $v_i \leadsto v_j$ в $D \implies$ има такъв път и в $D' (D \subseteq D')$.
+    В $D'$ е вярно, че $v_i \leadsto w, \forall v_i \in V$ тъй като към пътя от $v_i$ до $u$ в $D$ можем да добавим
+    реброто $(u, w)$. Но понеже $w \notin V$, то $w$ е краен връх, свързан единствено с $u \implies$ има път в $D'$ между
+    всеки два върха и $D'$ е свързан граф. \newline\newline Според ИП в $D$ няма цикли, а за да има цикъл в $D'$, той трябва да съдържа
+    реброто $(u, w)$. Това не е възможно, тъй като $w$ е краен връх $(|w| = 1)$, участва само в реброто $(u, w)$ и по дефиниция не може да участва в цикъл.
+\end{itemize}
+\end{proof}
+\textbf{\underline{Теорема}} \newline
+Нека $D(V, E)$ е дърво с корен $r$. Тогава $|V| = |E| + 1$.
+\begin{proof}
+    $ $
+    \begin{itemize}
+        \item За тривиалното кореново дърво $D(V = {r}, E = \{\})$ имаме \newline $|V| = 1, |E| = 0 \implies |V| = |E| + 1$
+        \item Нека $D(V, E)$ е кореново дърво и $|V| = |E| + 1$
+        \item Присъединяваме $w$ към върха $u \in V$ и получаваме кореновото дърво $D'(V' = V \cup {w}, E' = E \cup {(u, w)})$. От
+        $|V'| = |V| + 1$ и $|E'| = |E| + 1 \implies |V'| - |E'| = |V| - |E| \overset{\text{от ИП}}{=} 1$. Тогава $|V'| = |E'| + 1$
+    \end{itemize}
+\end{proof}
+\textbf{\underline{Дефиниция}}
+Нека $G(V, E)$ е граф, а $D(V, E'), E' \subseteq E$ е дърво. Тогава $D$ наричаме \textbf{покриващо дърво} на $G$. \newline\newline
+\textbf{\underline{Алгоритъм} (обхождане в ширина)} \newline\newline
+\underline{Дадено}: Свързан граф $G(V, E)$. \newline
+\underline{Резултат}: Покриващо дърво $D(V, E')$ на $G$. \newline
+\underline{Процедура}:
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+    \item Избираме коренът $r$ за начален връх на обхождането, т.е. $L_0 = \{r\}$. Построяваме дървото
+    $D_0(V_0 = \{L_0\}, E_0 = \varnothing)$ и $l = 0$.
+    \item Ако $V_l = V$, алгоритъмът спира и търсеното покриващо дърво е $D_l$. В противен случай преминаваме към $\circled{3}$.
+    \item Нека $D_l(V_l, E_l)$ е дървото, построено след $l$-тата стъпка и $L_l$ са върховете от $l$-то ниво. Образуваме
+    следващото ниво $L_{l+1} = \{v \hspace{0.1cm} | \hspace{0.1cm} v \notin V_l, \exists w \in L_l, (w, v) \in E\}$. Построяваме дървото $D_{l+1}
+    (V_{l+1} = V_l \cup L_{l+1}, E_{l+1} = E_l \cup \{(w, v) \hspace{0.1cm} | \hspace{0.1cm} (w, v) \in E, w \in L_l, v \in L_{l+1}\})$, с присъединяване
+    на всеки $v \in L_{l+1}$ към съответния $w \in L_l$. Нека $l = l + 1$ и се връщаме към $\circled{2}$.
+\end{enumerate}
+\textbf{\underline{Алгоритъм} (обхождане в дълбочина)} \newline\newline
+\underline{Дадено}: Свързан граф $G(V, E)$. \newline
+\underline{Резултат}: Покриващо дърво $D(V, E')$ на $G$. \newline
+\underline{Процедура}:
+\begin{enumerate}[label=\protect\circled{\arabic*}]
+    \item Избираме коренът $r$ за начален връх на обхождането, т.е. $L_0 = \{r\}$. Построяваме дървото $D_0(V_0= \{r\}, E_0 = \varnothing)$. \newline
+    Нека $t = r, parent(t)$ е неопределен и $i = 0$.
+    \item Ако $V_l = V$, алгоритъмът спира и търсеното покриващо дърво е $D_l$. В противен случай преминаваме към $\circled{3}$.
+    \item Нека е построено дървото $D_i(V_i, E_i)$. Търсим $v \in V_i$ такова, че $(t, v) \in E$ и
+    \begin{itemize}
+        \item ако има такъв, построяваме дървото $D_{i+1}(V_{i+1} = \{V_i \cup \{v\}\}, E_{i+1} = \{E_i \cup \{(t, v)\}\}),$
+        Сега $parent(v) = t, t = v, i = i + 1$ и се връщаме към $\circled{2}$.
+        \item в противен случай:
+        \begin{itemize}
+            \item ако $t \neq r$, тогава $t = parent(t)$ и се връщаме към $\circled{2}$.
+            \item ако $t = r$ - край, търсеното покриващо дърво е $D_i$.
+        \end{itemize}
+    \end{itemize}
+\end{enumerate}
+\textbf{\underline{Дефиниция}}
+\textbf{Ойлеров път} в свързания мултиграф $G(V, E)$ наричаме път, който минава еднократно през всяко ребро на мултиграфа.
+Ако Ойлеровият път има съвпадащи начало и край, тогава той се нарича \textbf{Ойлеров цикъл}. \newline\newline
+\textbf{\underline{Теорема} (Ойлер)} \newline
+Свързаният мултиграф $G(V, E)$ е Ойлеров $\iff$ всеки връх на $G$ е с четна степен.
+\begin{proof}
+    $ $ \newline  
+    $\Rightarrow)$ Нека ребрата на $G(V, E)$ образуват Ойлеров цикъл. Тогава всеки връх има четна степен, защото при обхождане на мултиграфа
+    по Ойлеровия цикъл, на всяко ребро "влизащо" във връх $v_i$ съответства ребро "излизащо" от $v_i$, а цикълът съдържа всички ребра точно по
+    един път. \newline\newline
+    $\Leftarrow)$ Нека мултиграфът $G(V, E)$ е свързан и такъв, че всеки връх има четна степен. Ще построим Ойлеров цикъл от всички ребра на
+    мултиграфа.
+    \begin{enumerate}[label=\protect\circled{\arabic*}]
+        \item Нека $v_0$ е произволен връх на $G$, който избираме за начален и текущ.
+        \item Докато е възможно, от текущия връх преминаваме към съседен връх $v$ по необходено ребро, което маркираме като
+        обходено, а върхът $v$ става новият текущ. Когато текущият връх няма необходени ребра, значи сме се върнали обратно в
+        началния връх $v_0$, тъй като всяко влизане във връх има съответно излизане, а степента на всеки връх е четна.
+        В противен случай бихме имали противоречие $\implies$ всички обходени на този етап ребра образуват цикъл $C$.
+        \item Ако цикълът $C$ съдържа всички ребра - край на обхождането, построен е Ойлеров цикъл.
+        \item В противен случай премахваме от мултиграфа ребрата на цикъла $C$. Полученият мултиграф е такъв, че всеки връх е с четна степен.
+        Търсим в $C$ връх $v_1$, от който излиза поне едно необходено ребро. Ако допуснем, че такъв връх няма, при условие, че не
+        всички ребра са обходени, ще получим противоречие със свързаността на мултиграфа. Повтаряме действията от стъпка $\circled{2}$ с начален връх
+        $v_0 = v_1$ и построяваме нов цикъл. Сега разкъсваме двата цикъла в общия им връх $v_1$ и с отъждествяването на получените краища два по два,
+        получаваме нов цикъл $C$ и преминаваме към $\circled{3}$.
+    \end{enumerate}
+    Алгоритъмът ще завърши работа, когато всички ребра се изчерпят и построява Ойлеров цикъл $\implies$ мултиграфът е Ойлеров.
+\end{proof}
+\textbf{\underline{Теорема} (Ойлеров път)} \newline
+Свързаният мултиграф $G(V, E)$ съдържа Ойлеров път, който не е Ойлеров цикъл $\iff$ има точно $2$ върха с нечетна степен.
+
+\section*{\centering \color{lightBlue}{Езици, автомати и изчислимост}}
+
+\subsection*{\color{lightBlue}{4. Kрайни автомати. Регулярни езици.}}
+% \subsection*{\color{lightBlue}{4. Характеризация на регулярните езици. Теорема на Майхил-Нероуд.}}
+\textbf{\underline{Дефиниция}}
+\textbf{Краен детерминиран автомат} наричаме петорката \newline $\mathcal{A} = <Q, \Sigma, q_0, \delta, F>$, където:
+\begin{itemize}
+    \item $Q$ е крайно множество от състояния
+    \item $\Sigma$ е крайна входна азбука
+    \item $q_0 \in Q$ е начално състояние
+    \item $\delta : Q \bigtimes \Sigma \rightarrow Q$ е частична функция на преходите, пресмятаща следващото състояние
+    \item $F \subseteq Q$ е множество от финални състояния
+\end{itemize}
+Казваме, че $\mathcal{A}$ е \textbf{тотален}, ако $\delta$ е тотална функция. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $\mathcal{A} = <Q, \Sigma, q_0, \delta, F>$ е краен автомат. Казваме, че състоянието $q$ достига състоянието $q'$ чрез
+думата $w = a_1...a_n, a_i \in \Sigma$ в $\mathcal{A}$ ($q \xmapsto[\mathcal{A}]{w} q'$), ако $\exists$ път $q, a_1, q_1, ..., a_n, q'$. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $\mathcal{A} = <Q, \Sigma, q_0, \delta, F>$ е краен автомат. Език, разпознаван от автомата $\mathcal{A}$ наричаме
+$$L(\mathcal{A}) = \{w \in \Sigma^* \hspace{0.2cm} | \hspace{0.2cm} q_0 \xmapsto[\mathcal{A}]{w} q, \text{ за } q \in F\}$$
+\textbf{\underline{Дефиниция}}
+Казваме, че $L \subseteq \Sigma^*$ е \textbf{автоматен език}, ако $\exists$ краен автомат $\mathcal{A}$ такъв, че $L = L(\mathcal{A})$. \newline\newline
+\textbf{\underline{Теорема}} \newline
+Автоматните езици са затворени относно регулярните операции обединение, конкатенация и звезда на Клини. \newline\newline
+\textbf{\underline{Дефиниция}}
+\textbf{Регулярни езици} над азбука $\Sigma$ дефинираме рекурсивно:
+\begin{itemize}
+    \item $\varnothing$, $\{\varepsilon\}$ и $\{a\}$ за всяко $a \in \Sigma$ са регулярни езици.
+    \item Ако $L_1$ и $L_2$ са регулярни езици, то $L_1 \cup L_2$, $L_1 . L_2$ и $L_1^*$ са също регулярни езици.
+\end{itemize}
+\textbf{\underline{Теорема} (Клини)} \newline
+Всеки автоматен език е регулярен. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $L \subseteq \Sigma^*$. Казваме, че две думи $w, w' \in \Sigma^*$ са еквивалентни по релацията на Майхил-Нероуд над $L$ ($w \sim_L w'$), ако:
+$$\forall u \in \Sigma^* (wu \in L \iff w'u \in L)$$
+Релацията $\sim_L$ е релация на еквивалентност и е дясно инвариантна. \newline\newline
+\textbf{\underline{Дефиниция}}
+Всеки език $L \subseteq \Sigma^*$ дефинира фактормножеството $\Sigma^*/\sim_L = \{[w]_L \hspace{0.1cm} | \hspace{0.1cm} w \in \Sigma^*\}$, където
+$[w]_L = \{w' \in \Sigma^* \hspace{0.1cm} | \hspace{0.1cm} w \sim_L w'\}$. \newline\newline
+\textbf{\underline{Лема}} \newline
+Нека $\mathcal{A} = <Q, \Sigma, q_0, \delta, F>$ е тотален КДА, $q \in Q$ и $w, w' \in \Sigma^*$
+са такива, че $q_0 \xmapsto[\mathcal{A}]{w} q$ и $q_0 \xmapsto[\mathcal{A}]{w'} q$. Тогава $w \sim_L w'$. \newline\newline
+\textbf{\underline{Теорема (Майхил-Нероуд)}} \newline
+Езикът $L \subseteq \Sigma^*$ е регулярен $\iff$ множеството $\Sigma^*/\sim_L$ е крайно.
+\begin{proof}
+$ $ \newline
+$\Rightarrow)$ Нека $L \subseteq \Sigma^*$ е регулярен. Тогава $\exists$ ТКДА $\mathcal{A} = <Q, \Sigma, q_0, \delta, F>$ с $L(\mathcal{A}) = L$.
+Нека $\mathcal{A}$ има $n$ достижими състояния $q_0, q_1, ..., q_{n-1}$ и да фиксираме $w_0, w_1, ..., w_{n-1}$ такива, че $q_0 \xmapsto[\mathcal{A}]{w_i}
+q_i$ за $0 \le i \le n - 1$. Тогава за произволна дума $w \in \Sigma^*$ е в сила $q_0 \xmapsto[\mathcal{A}]{w} q_i$ за някое $0 \le i \le n - 1$. От предната
+\textbf{\underline{Лема}} имаме, че $w \in [w_i]$ за някое $0 \le i \le n - 1 \implies \Sigma^*/\sim_L = \{[w_0]_L, [w_1]_L, ..., [w_{n-1}]_L\} \implies
+\Sigma^*/\sim_L$ има най-много $n$ елемента $\implies \Sigma^*/\sim_L$ е крайно. \newline\newline
+$\Leftarrow)$ Нека $\Sigma^*/\sim_L$ е крайно. Тогава можем да конструираме ТКДА, който разпознава $L$. Дефинираме автомат $\mathcal{A}_L = <Q_L, \Sigma,
+q_{0L}, \delta_L, F_L>$ така:
+\begin{itemize}
+    \item $Q_L = \Sigma^*/\sim_L$
+    \item $q_{0L} = [\varepsilon]_L$
+    \item $\delta_L = \{[w]_L \xmapsto[\mathcal{A}_L]{a} [wa]_L \hspace{0.1cm} | \hspace{0.1cm} w \in \Sigma^*, a \in \Sigma \}$
+    \item $F_L = \{[w]_L \hspace{0.1cm} | \hspace{0.1cm} w \in L\}$
+\end{itemize}
+Ще докажем, че за произволни $u, w \in \Sigma^*$ е в сила $[u]_L \xmapsto[\mathcal{A}_L]{w} [uw]_L$ \newline
+Прилагаме индукция по $|w|$:
+\begin{itemize}
+    \item Ако $|w| \le 1$, то твърдението е очевидно.
+    \item Нека $|w| = n > 1$ и твърдението е вярно за думи с дължина $n - 1$.
+    \item Нека $w = w'a$, където $w' \in \Sigma^*$, $a \in \Sigma$. Тогава $|w'| = n - 1 \overset{\text{от ИП}}{\implies} [u]_L \xmapsto[\mathcal{A}_L]{w'} [uw']_L$.
+    От $[uw']_L \xmapsto[\mathcal{A}_L]{a} [uw'a]_L \implies [u]_L \xmapsto[\mathcal{A}_L]{w'a} [uw'a]_L$. Оттук, за произволна дума
+    $w \in \Sigma^*$ е в сила $q_{0L} \xmapsto[\mathcal{A}_L]{w} [w]_L \implies w \in L(\mathcal{A}_L) \iff [w]_L \in F_L
+    \iff w \sim_L w'$ за някое $w' \in L \implies w' \in L \iff w'\varepsilon \in L \iff w\varepsilon \in L \iff w \in L$, откъдето
+    $w \in L(\mathcal{A}_L) \iff w \in L$
+\end{itemize}
+\end{proof}
+\subsection*{\color{lightBlue}{5. Контекстносвободни граматики и езици. Стекови автомати.}}
+% \subsection*{\color{lightBlue}{5. Лема за разрастването на контекстносвободни езици. Незатвореност на класа на
+% контекстносвободните езици относно сечение и допълнение.}}
+\textbf{\underline{Дефиниция}}
+\textbf{Контекстносвободна граматика} наричаме четворката \newline $G = <\Gamma, \Sigma, R, S>$, където:
+\begin{itemize}
+    \item $\Gamma$ е азбука на граматиката
+    \item $\Sigma$ са терминални символи на граматиката
+    \item $R \subseteq (\Gamma \hspace{0.1cm} \backslash \hspace{0.1cm} \Sigma) \bigtimes \Gamma^*$ са правила на граматиката
+    \item $S \in \Gamma \hspace{0.1cm} \backslash \hspace{0.1cm} \Sigma$ е начален символ на граматиката
+\end{itemize}
+\textbf{\underline{Дефиниция}} Нека $G = <\Gamma, \Sigma, R, S>$ е КСГ. Казваме, че думата $u \in \Gamma^*$ се \textbf{извежда} до
+думата $u' \in \Gamma^*$ в $G$ ($u \Rightarrow^*_G u'$), ако $\exists u_1, ..., u_{n-1} \in \Gamma^*$ такива, че $u \Rightarrow_G u_1
+\Rightarrow_G ... \Rightarrow_G u_{n-1} \Rightarrow_G u'$. При $n = 0$, $u \Rightarrow_G^0 u$. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $G = <\Gamma, \Sigma, R, S>$ е КСГ. \textbf{Дърво на извод} по $G$ дефинираме по рекурсивен начин:
+\begin{itemize}
+    \item $\forall a \in \Sigma$, $a$ е дърво на извода с корен $a$, височина $0$ и извод $a$
+    \item $\forall A \rightarrow_{G} \varepsilon$,
+        \raisebox{-0.9em}{\begin{forest}
+          for tree={draw=none, align=center, l sep=10pt, s sep=5pt, baseline}
+          [A
+            [\(\varepsilon\)]
+          ]
+        \end{forest}} е дърво с корен $A$, височина $1$ и извод $\varepsilon$
+    \item $\forall A \rightarrow_{G} X_1...X_n$, където $X_1, ..., X_n$ са символи на G, и всеки избор на дървета $T_1, ..., T_n$
+    съответно с корени $X_1, ..., X_n$, височини $h_1, ..., h_n$ и изводи $w_1, ..., w_n$ \begin{center}
+        \begin{forest}
+          for tree={draw=none, edge={line width=0.4pt}, align=center, anchor=center, parent anchor=south, child anchor=north, inner sep=2pt, l sep=10pt, s sep=5pt,}
+          [A
+            [\(T_1\)]
+            [\(T_2\)]
+            [\(...\)]
+            [\(T_n\)]
+          ]
+        \end{forest}
+        \end{center} е дърво с корен $A$, височина $1 + max\{h_1, ..., h_n\}$ и извод $w_1, ..., w_n$
+\end{itemize}
+\textbf{\underline{Дефиниция}}
+Казваме, че езикът $L$ е \textbf{контекстносвободен}, ако $\exists$ КСГ $G$, за която $L(G) = \{w \in \Sigma^* \hspace{0.2cm} | \hspace{0.2cm}
+S \Rightarrow^*_{G} w\}$ \newline\newline
+\textbf{\underline{Теорема}} \newline
+Контекстносвободните езици са затворени относно обединение.
+\begin{proof}
+Нека $L_1$ и $L_2$ са КСЕ над $\Sigma$, $G_1 = <\Gamma_1, \Sigma, R_1, S_1>$ и $G_2 = <\Gamma_2, \Sigma, R_2, S_2>$ са КСГ с $L(G_1) = L_1$,
+$L(G_2) = L_2$ и $\Gamma_1 \cap \Gamma_2 = \Sigma$. \newline Разглеждаме КСГ $G = <\Gamma, \Sigma, R, S>$, където:
+\begin{itemize}
+    \item $\Gamma = \Gamma_1 \cup \Gamma_2 \cup \{S\}$, за $S \notin \Gamma_1 \cup \Gamma_2$
+    \item $R = R_1 \cup R_2 \cup \{S \rightarrow S_1 \hspace{0.1cm} | \hspace{0.1cm} S_2\}$
+\end{itemize}
+\end{proof}
+\textbf{\underline{Теорема}} \newline
+Контекстносвободните езици са затворени относно конкатенация.
+\begin{proof}
+Нека $L_1$ и $L_2$ са КСЕ над $\Sigma$, $G_1 = <\Gamma_1, \Sigma, R_1, S_1>$ и $G_2 = <\Gamma_2, \Sigma, R_2, S_2>$ са КСГ с $L(G_1) = L_1$,
+$L(G_2) = L_2$ и $\Gamma_1 \cap \Gamma_2 = \Sigma$. \newline Разглеждаме КСГ $G = <\Gamma, \Sigma, R, S>$, където:
+\begin{itemize}
+    \item $\Gamma = \Gamma_1 \cup \Gamma_2 \cup \{S\}$, за $S \notin \Gamma_1 \cup \Gamma_2$
+    \item $R = R_1 \cup R_2 \cup \{S \rightarrow S_1 S_2\}$
+\end{itemize}
+\end{proof}
+\textbf{\underline{Теорема}} \newline
+Контекстносвободните езици са затворени относно звезда на Клини.
+\begin{proof}
+Нека $L$ е КСЕ над $\Sigma$ и $G = <\Gamma, \Sigma, R, S>$ е КСГ с $L(G) = L$. Разглеждаме КСГ $G' = <\Gamma', \Sigma, R', S'>$, където:
+\begin{itemize}
+    \item $\Gamma' = \Gamma \cup \{S'\}$, за $S' \notin \Gamma$
+    \item $R' = R \cup \{S \rightarrow \varepsilon \hspace{0.1cm} | \hspace{0.1cm} S'S\}$
+\end{itemize}
+\end{proof}
+\textbf{\underline{Дефиниция}}
+Казваме, че една КСГ е в нормална форма на Чомски, ако за всяко правило $A \rightarrow_{G} \alpha$ е в сила $|\alpha| = 2$. \newline\newline
+\textbf{\underline{Лема}} \newline
+Нека $G$ е КСГ в НФЧ, $T$ е дърво на извода в $G$ с връх $A$ и извод $w$ и $T'$ е поддърво на $T$ с връх $B$ и извод $\alpha$. Тогава $\exists
+w', w'' \in \Sigma^*$ такива, че $w = w'\alpha w''$ и $A \Rightarrow^*_{G} w'Bw''$. Ако $T \notequiv T'$, то $|w'w''| \ge 1$. \newline\newline
+\textbf{\underline{Лема} (разрастване на КСЕ)} \newline
+Нека $L$ е КСЕ. Тогава $\exists n \in \mathbb{N}^+$ такова, че $\forall w \in L, |w| > n \hspace{0.1cm} \exists x, y, z, u, v \in \Sigma^*$ такива, че
+$w = xyzuv$ и
+\begin{itemize}
+    \item $|yzu| \le n$
+    \item $|yu| \ge 1$
+    \item $xy^izu^iv \in L, \forall i \ge 0$
+\end{itemize}
+\begin{proof}
+Нека $G$ е КСГ в НФЧ, която генерира думите от $L$ с дължина $\ge$ 2, $m = |\Gamma \hspace{0.1cm} \backslash \hspace{0.1cm} \Sigma|$, да положим $n = 2^m$ и
+$w \in L, |w| > n$. Тогава $|w| > 2$ (в $G$ има поне един нетерминал) и значи в $G$ има дърво на извода $T$ с връх
+$S$ (начален за $G$) и извод $w$. От това, че $G$ е в НФЧ следва, че извода на дърво с височина $q$, има дължина $\le 2^q$ и от $|w| > 2^m$ следва, че
+$h_T > m$. \newline Конструираме редицата от поддървета на $T : T = T_0 \succ T_1 \succ ... \succ T_h$ и нека
+$T_i$ е с връх $A_i$, височина $h - i$ и извод $w_i$ за $0 \leq i \leq h$. Редицата $A_{h-m-1}, A_{h-m}, ..., A_{h-1}$ съдържа
+$m + 1$ нетерминала и значи поне един от тях се повтаря два пъти (принцип на Дирихле). \newline Нека $h - m - 1 \leq j < k \leq h - 1$ са такива, че $A_j = A_k$. \newline
+От $T \succ T_j$ и предната \textbf{\underline{Лема}} следва, че $\exists x, v \in \Sigma^* : w = xw_jv$ и $S \Rightarrow^*_{G} xA_jv$. От $T_j \succ T_k$ и предната
+\textbf{\underline{Лема}} следва, че $\exists y, u \in \Sigma^* : w_j = yw_ku$ и $A_j \Rightarrow^*_{G} yA_ku$ като при това $|yu| \ge 1$. Оттук, полагайки
+$z = w_k$ и използвайки $A_j = A_k$ получаваме $S \Rightarrow^*_{G} xA_jv \Rightarrow^*_{G} xyA_juv \Rightarrow^*_{G} xyyA_juuv \Rightarrow^*_{G} ...
+\Rightarrow^*_{G} xy^iA_ju^iv \Rightarrow^*_{G} xy^izu^iv$. Освен това $yzu = w_j$ и тъй като $h_{T_j} \le m$, то $|yzu| \le 2^m = n$.
+\end{proof}
+\textbf{\underline{Пример за неконтекстносвободен език}} \newline\newline
+    Езикът $L = \{a^nb^nc^n \hspace{0.2cm} | \hspace{0.2cm} n \ge 0\}$ не е КСЕ.
+    \begin{proof}
+        Нека $w = a^nb^nc^n \in L$. Тогава $|w| = 3n > n$. Нека $x, y, z, u, v \in \Sigma^*$ такива, че $w = xyzuv, |yzu| \le n$ и
+        $|yu| \ge 1$. Тогава $yzu$ не съдържа букви $a$ или не съдържа букви $c$ (или и двете). Нека за определеност $yzu$ не
+        съдържа букви $c$ (в другия случай се разсъждава аналогично). Да разгледаме $w_0 = xy^0zu^0v = xzv$. Тогава $w_0$ съдържа
+        точно $n$ на брой букви $c$, но тъй като $|yu| \ge 1$, то $|w_0| < 3n \implies w_0 \notin L$. От това и \textbf{\underline{Лема}}
+        за разрастването следва, че $L$ не е КСЕ.
+    \end{proof}
+\textbf{\underline{Теорема}} \newline
+Контекстносвободните езици не са затворени относно операцията сечение.
+\begin{proof}
+Нека $L_1 = \{a^kb^kc^s \hspace{0.1cm} | \hspace{0.1cm} k,s \geq 0\}$ и $L_2 = \{a^kb^sc^s \hspace{0.1cm} | \hspace{0.1cm} k,s \geq 0\}$.
+$L_1$ е КСЕ, тъй като е конкатенация на КСЕ $\{a^kb^k \hspace{0.1cm} | \hspace{0.1cm} k \geq 0\}$ и РЕ $\{c^s \hspace{0.1cm}
+| \hspace{0.1cm} s \geq 0\}$. $L_2$ е КСЕ, тъй като е конкатенация на РЕ $\{a^k \hspace{0.1cm} | \hspace{0.1cm} k \geq 0\}$
+и КСЕ $\{b^sc^s \hspace{0.1cm} | \hspace{0.1cm} s \geq 0\}$. Но $L_1 \cap L_2 = \{a^kb^kc^k \hspace{0.1cm} | \hspace{0.1cm} k \geq 0 \}$, който не е КСЕ.
+\end{proof}
+\textbf{\underline{Теорема}} \newline
+Контекстносвободните езици не са затворени относно операцията допълнение.
+\begin{proof}
+Съгласно правилото на Де Морган, $L_1 \cap L_2 = \overline{{\overline{L_1} \cup \overline{L_2}}}$. От затвореността на КСЕ относно
+обединение и това, че не са затворени относно сечение, следва че КСЕ не са затворени относно допълнение.
+\end{proof}
+\section*{\centering \color{lightBlue}{Дизайн и анализ на алгоритми}}
+
+\subsection*{\color{lightBlue}{6. Сложност на алгоритъм. Асимптотично поведение на целочислени функции 
+($O$-, $\Omega$-, $\Theta$-, $o$- и $\omega$-нотация). Сложност на рекурсивни програми.}}
+
+\textbf{\underline{Дефиниция}}
+\textbf{Машина на Тюринг} наричаме петорката $M = <Q, \Gamma, q_0, \delta, F>$, където:
+\begin{itemize}
+    \item $Q$ е крайно множество от състояния
+    \item $\Gamma$ е крайна азбука
+    \item $q_0 \in Q$ е начално състояние
+    \item $\delta : Q \bigtimes \Gamma \rightarrow (Q \cup F) \bigtimes \Gamma \bigtimes \{L, R, S\}$ е функция на преходите
+    \item $F$ е множество от финални състояния, $F \cap Q = \varnothing$
+\end{itemize}
+\textbf{\underline{Дефиниция}}
+\textbf{Машина с произволен достъп} наричаме абстрактен изчислителен модел, подобен на машината на Тюринг, но с възможност
+за директен достъп до произволна позиция на лентата. Формално може да се представи като наредена шесторка $M = <Q, \Gamma, q_0, \delta, F, D>$,
+където $D$ е произволно множество от команди за достъп до клетки от лентата. \newline\newline
+\textbf{\underline{Дефиниция}}
+\textbf{Език за програмиране} наричаме крайно множество от символи (азбука) и правила за построяване на синтактично коректни програми над тази азбука. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $f_M : A^* \rightarrow A^*$ е тотална функция изчислима с машината на Тюринг $M$. Функцията
+$$t_M(n) = \underset{w \in A^*, |w| = n}{max} [\text{ брой стъпки на M при работа върху $w$ }]$$
+наричаме \textbf{сложност по време} на $M$ в най-лошия случай, а функцията
+$$\tilde{t}_M(n) = \frac{1}{|A^n|}\sum_{w \in A^*, |w| = n} [\text{ брой стъпки на M при работа върху $w$ }]$$
+наричаме \textbf{средна сложност по време} на $M$. Функцията
+$$s_M(n) = \underset{w \in A^*, |w| = n}{max} [\text{ брой използвани клетки от M при работа върху $w$ }]$$
+наричаме \textbf{сложност по памет} на $M$ в най-лошия случай, а функцията
+$$\tilde{s}_M(n) = \frac{1}{|A^n|}\sum_{w \in A^*, |w| = n} [\text{ брой използвани клетки от M при работа върху $w$ }]$$
+наричаме \textbf{средна сложност по памет} на $M$. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $f : \mathbb{N} \rightarrow \mathbb{R}$. Казваме, че $f$ е асимптотично положителна, ако $\exists n_0 \in \mathbb{N} \hspace{0.1cm}
+\forall n \ge n_0 : f(n) > 0$ \newline\newline
+\textbf{\underline{Дефиниция}}
+$\mathbf{O(g)}$ е множеството от всички функции, които растат асимптотично не по-бързо от $g$. Означение: $f \preceq g, f = O(g), f \in O(g)$.
+$$O(g) = \{f \hspace{0.2cm} | \hspace{0.2cm} \exists c > 0 \hspace{0.2cm} \exists n_0 \in \mathbb{N} \hspace{0.2cm} \forall n \ge n_0 : 0 \le f(n) \le c.g(n)\}$$
+\textbf{\underline{Дефиниция}}
+$\mathbf{\Omega(g)}$ е множеството от всички функции, които растат асимптотично не по-бавно от $g$. Означение: $f \succeq g, f = \Omega(g), f \in \Omega(g)$.
+$$\Omega(g) = \{f \hspace{0.2cm} | \hspace{0.2cm} \exists c > 0 \hspace{0.2cm} \exists n_0 \in \mathbb{N} \hspace{0.2cm} \forall n \ge n_0 : 0 \le c.g(n) \le f(n)\}$$
+\textbf{\underline{Дефиниция}}
+$\mathbf{\Theta(g)}$ е множеството от всички функции, които растат асимптотично еднакво с $g$. Означение: $f \asymp g, f = \Theta(g), f \in \Theta(g)$.
+$$\Theta(g) = \{f \hspace{0.2cm} | \hspace{0.2cm} \exists c_1 > 0 \hspace{0.2cm} \exists c_2 > 0 \hspace{0.2cm} \exists n_0
+\in \mathbb{N} \hspace{0.2cm} \forall n \ge n_0 : 0 \le c_1.g(n) \le f(n) \le c_2.g(n)\}$$
+\textbf{\underline{Дефиниция}}
+$\mathbf{o(g)}$ е множеството от всички функции, които растат асимптотично по-бавно от $g$. Означение: $f \prec g, f = o(g), f \in o(g)$.
+$$o(g) = \{f \hspace{0.2cm} | \hspace{0.2cm} \forall c > 0 \hspace{0.2cm} \exists n_0 \in \mathbb{N} \hspace{0.2cm} \forall n \ge n_0 : 0 \le f(n) < c.g(n)\}$$
+\textbf{\underline{Дефиниция}}
+$\mathbf{\omega(g)}$ е множеството от всички функции, които растат асимптотично по-бързо от $g$. Означение: $f \succ g, f = \omega(g), f \in \omega(g)$.
+$$\omega(g) = \{f \hspace{0.2cm} | \hspace{0.2cm} \forall c > 0 \hspace{0.2cm} \exists n_0 \in \mathbb{N} \hspace{0.2cm} \forall n \ge n_0 : 0 \le c.g(n) < f(n)\}$$
+\textbf{\underline{Свойства}}
+\begin{enumerate}
+    \item Рефлексивност на $O$, $\Omega$ и $\Theta$: $f \sigma f, \hspace{0.1cm} \forall \sigma \in \{\preceq, \succeq, \asymp\}$
+    \item Симетричност на $\Theta$: $f \asymp g \implies g \asymp f$
+    \item Антисиметричност на $O$ и $\Omega$: $f \preceq g$ и $f \succeq g \iff f \asymp g$
+    \item Транзитивност на $O, \Omega, \Theta, o, \omega$: ако $f \sigma g$ и $g \sigma h$, то $f \sigma h, \hspace{0.1cm} \newline \forall \sigma \in
+    \{\preceq, \succeq, \asymp, \prec, \succ\}$
+\end{enumerate}
+\textbf{\underline{Теореми} (гранични)}
+$$\lim_{n \rightarrow \infty}\frac{f(n)}{g(n)} = c > 0 \implies f(n) = \Theta(g(n))$$
+$$\lim_{n \rightarrow \infty}\frac{f(n)}{g(n)} = 0 \iff f(n) = o(g(n))$$
+$$\lim_{n \rightarrow \infty}\frac{f(n)}{g(n)} = \infty \iff f(n) = \omega(g(n))$$
+\textbf{\underline{Теорема} (Мастър)} \newline
+Нека $a \ge 1, b > 1, f(n)$ и $T(n)$ са асимптотично положителни функции, $T(n) = a.T(\frac{n}{b}) + f(n), n > 1$. Тогава:
+\begin{enumerate}
+    \item Ако $f(n) = O(n^{\log_ba - \varepsilon})$ за $\varepsilon > 0$, то $T(n) = \Theta(n^{\log_ba})$
+    \item Ако $f(n) = \Theta(n^{\log_ba})$, то $T(n) = \Theta(n^{\log_ba}logn)$
+    \item Ако $f(n) = \Omega(n^{\log_ba + \varepsilon})$ за $\varepsilon > 0$ и $\exists c \in (0, 1) \hspace{0.2cm}
+    \exists n_0 \in \mathbb{N} \hspace{0.2cm} \forall n \ge n_0 : a.f(\frac{n}{b}) \le c.f(n)$, то $T(n) = \Theta(f(n))$
+\end{enumerate}
+
+\subsection*{\color{lightBlue}{7. Алгоритми в графи с тегла на ребрата. Оценки за сложност.}}
+Нека $G(V, E)$ е свързан граф и $w : E \rightarrow \mathbb{R}$ е функция с реални стойности, дефинирана по ребрата на $G$. \newline\newline
+\textbf{\underline{Дефиниция}}
+Нека $D(V, E')$ е покриващо дърво на $G(V, E)$. \textbf{Тегло} на дървото наричаме сумата $$w(D) = \sum_{e \in E'}w(e) \text{ където } w(e) \text{ e тегло на реброто } e$$
+\textbf{\underline{Дефиниция}}
+Нека $D'(V, E')$ е покриващо дърво на $G(V, E)$. Казваме, че то е \textbf{минимално}, ако $w(D') \le w(D)$ за всяко друго покриващо дърво $D$ на $G$. \newline\newline
+\textbf{\underline{Теорема} (за съгласуваното множество)} \newline
+Нека $G(V, E)$ е свързан граф с теглова функция на ребрата $w : E \rightarrow \mathbb{R}$, $\varnothing \neq U \subset V$ и $e = (v_i, v_j) \in E$
+е такова, че $v_i \in U, v_j \in V \backslash U$ и $e$ има минимално тегло измежду всички такива ребра. Тогава $\exists$ МПД $D(V, E')$
+на $G$ такова, че $e \in E'$.
+\begin{proof}
+Нека $D(V, E')$ е произволно МПД на $G(V, E)$ и да допуснем, че $e \notin E'$. Да разгледаме графа $G'(V, E' \cup \{e\})$. В $G'$ има точно $1$ цикъл
+$\implies$ поне едно ребро в този цикъл пресича границата между $U$ и $V \backslash U$ и нека това да бъде реброто $(u, v)$. По условие $e$ има минимално тегло
+измежду всички ребра, които пресичат границата $\implies w(e) \leq w(u, v)$. \newline Нека построим дървото $D'(V, E' \cup \{e\} \hspace{0.1cm} \backslash
+\hspace{0.1cm}\{(u, v)\})$. $D'$ е покриващо дърво на $G(V, E)$ и $w(D') = w(D) + w(e) - w(u, v)\leq w(D)$. Ако допуснем, че $w(D') < w(D)$,
+стигаме до противоречие с това, че $D(V, E')$ е МПД $\implies w(D') = w(D)$.
+\end{proof}
+\textbf{\underline{Алгоритъм} (Прим)} \newline\newline
+\underline{Дадено}: Свързан граф $G(V, E)$ с теглова функция на ребрата $w : E \rightarrow \mathbb{R}$. \newline
+\underline{Резултат}: Минимално покриващо дърво $D(V, E')$ на $G$ с корен - зададен връх $r \in V$. \newline
+% \underline{Процедура}:
+% \begin{enumerate}[label=\protect\circled{\arabic*}]
+%     \item Построяваме дървото $D_0(V_0 = \{r\}, E_0 = \varnothing), k = 0$.
+%     \item Нека сме построили $D_k(V_k, E_k)$. \newline Търсим реброто $e = (v_i, v_j)$, където $v_i \in V_k, v_j \in V \backslash V_k$
+%     с минимално тегло и построяваме $D_{k+1}(V_{k+1} = V_k \cup \{v_j\}, E_{k+1} = E_k \cup \{e\}), k = k + 1$
+%     \item Ако $V_k = V$ - край, полученото дърво $D(V, E' = E_k)$ е оптималното. Иначе минаваме към $\circled{2}$.
+% \end{enumerate}
+\underline{Псевдокод}:
+\begin{lstlisting}[style=CStyle]
+foreach v $\in$ V
+    v.key $\leftarrow \infty$
+    $\pi$[v] $\leftarrow$ Nil
+s.key $\leftarrow$ 0
+
+Q $\leftarrow$ {} // празна приоритетна min опашка
+Q $\leftarrow$ V
+
+while not isempty(Q) do
+    x $\leftarrow$ ExtractMin(Q)
+    foreach y $\in$ adj[x]
+        if y $\in$ Q and y.key > w(x, y)
+            y.key $\leftarrow$ w(x, y)
+            $\pi$[y] $\leftarrow$ x
+return $\pi$[1...n]
+\end{lstlisting}
+\underline{Оценка на сложността} \newline\newline
+% \begin{itemize}
+%     \item Време - $O((V + E)logV)$, при реализация с приоритетна опашка (например min-heap)
+%     \item Памет - $O(V + E)$, за представяне на графа и помощните структури
+% \end{itemize}
+Допускаме, че $\cplain{Q}$ е реализирана чрез двоична пирамида. $\cplain{While}$-цикълът се изпълнява
+$\Theta\cplain{(n)}$ пъти, но този фактор не влияе на крайната оценка. Вместо да броим колко пъти се извърта $\cplain{while}$-цикъла,
+проследяваме изпълнението на $\cplain{for}$-цикъла на редове 11-14. Ред 11 се изпълнява $\Theta\cplain{(n + m)}$ пъти, защото това е просто
+обхождане на списъците на съседство. Ред 13 в най-лошия случай се извиква $\Theta\cplain{(n + m)}$ пъти, всяко със сложност $\cplain{lgn}$.
+Оттук оценката за сложността е $\Theta\cplain{((n + m)lgn)}$ \newline\newline
+\textbf{\underline{Алгоритъм} (Крускал)} \newline\newline
+\underline{Дадено}: Свързан граф $G(V, E)$ с теглова функция на ребрата $w : E \rightarrow \mathbb{R}$. \newline
+\underline{Резултат}: Минимално покриващо дърво $D(V, E')$ на $G$. \newline
+% \underline{Процедура}:
+% \begin{enumerate}[label=\protect\circled{\arabic*}]
+%     \item Сортираме ребрата на $G$ в нарастващ ред на теглото и нека този ред е $e_1, ..., e_m$
+%     \item От всеки връх $v$ на графа образуваме тривиално дърво $D_v(\{v\}, \varnothing)$
+%     \item Обхождаме ребрата $e_1, ..., e_m$ в този ред. За всяко ребро $e_i = (v_{i_1}, v_{i_2})$,
+%     ако $v_{i_1}$ и $v_{i_2}$ са в различни дървета, съответно $D'(V', E')$ и $D''(V'', E'')$, ги съединяваме в
+%     дървото $D(V' \cup V'', E' \cup E'' \cup \{(v_{i_1}, v_{i_2})\})$
+% \end{enumerate}
+% \underline{Сложност по}:
+% \begin{itemize}
+%     \item Време - $O(ElogV)$, при използване на сортиране и структура от тип union-find
+%     \item Памет - $O(V + E)$, за представяне на графа и помощните структури
+% \end{itemize}
+\underline{Псевдокод}:
+\begin{lstlisting}[style=CStyle]
+A $\leftarrow \varnothing$
+// направи разбиването $\{\{1\}, \{2\}, ..., \{n\}\}$
+// сортирай E по тегла
+count $\leftarrow$ 0
+
+while count < n - 1 do
+    e = (u, v) // е следващо ребро в сортираната редица
+    if component(u) $\neq$ component(v)
+        A $\leftarrow$ A $\cup$ {e}
+        identify(component(u), component(v))
+        count++
+return A
+\end{lstlisting}
+\underline{Оценка на сложността} \newline\newline
+За да бъде ефикасен алгоритъмът, трябва проверката $\cplain{component(u)}$ $\neq$ $\cplain{component(v)}$ и операцията $\cplain{identify(component(u),
+component(v))}$ да се извършат във време $O\cplain{(lgn)}$. Ако това е постигнато, то $\cplain{while}$-цикълът ще се изпълнява във време
+$O\cplain{(mlgn)}$ и алгоритъмът ще има сложност по време $\Theta(\cplain{mlgn})$ заради сортирането. \newline\newline
+\textbf{\underline{Дефиниция}}
+Претеглена дължина на пътя $\pi = v_{i_0}, ... v_{i_l}$ в $G$ наричаме $$w(\pi) = \sum_{j=0}^{l-1}w(v_{i_j}, v_{i_{j+1}})$$
+\textbf{Най-къс път} от $v_{i_0}$ до $v_{i_l}$ наричаме този с най-малка претеглена дължина. \newline\newline
+\textbf{\underline{Теорема}} \newline
+Нека $G(V, E)$ е свързан граф с теглова функция $w(e) = 1, \forall e \in E$ и $D$ е покриващо дърво на $G$ с корен $v_0$, построено в ширина.
+Всеки път от $v_0$ до връх $v$ в $D$ е най-къс път от $v_0$ до $v$ в графа $G$.
+\begin{proof}
+Ще докажем с индукция по нивата $L_i, i = 0, 1, ..., l$ на построеното в ширина дърво, че дължината на най-късия път от корена $v_0$ до всеки връх
+от ниво $L_i$ е точно $i$.
+\begin{itemize}
+    \item Дължината на най-късия път от $v_0$ до $v_0$ е $0$ и тъй като той е единствен връх в $L_0$, твърдението е в сила.
+    \item Нека твърдението е вярно за $L_0, L_1, ..., L_i$, т.е. $\forall u \in L_j, 0 \le j \le i$, най-късият път от $v_0$ до $u$ има дължина $j$.
+    \item Ще докажем, че най-късите пътища от $v_0$ до всеки връх от $L_{i+1}$ са с дължина $i + 1$. Да допуснем, че $\exists v \in L_{i+1}$ такъв, че
+    $v_0...w, v$ е най-къс път от $v_0$ до $v$ с дължина $k < i + 1$. Тогава $v_0...w$ е най-къс път от $v_0$ до $w$ с дължина $k - 1 < i$. От ИП
+    $w \in L_{k-1}$ и алгоритъмът трябваше да постави $v$ в $L_k, k < i + 1$, но това е противоречие с $v \in L_{i+1} \implies$ твърдението е в сила и за $L_{i+1}$.
+\end{itemize}
+\end{proof}
+% Преди да формулираме алгоритмите на Дейкстра и Белман-Форд, ще въведем две помощни процедури, които ще използваме по-нататък: \newline\newline
+% ISS(G, s) - инициализира граф, задавайки начални стойности за разстоянията и предшествениците
+% \begin{lstlisting}[style=CStyle]
+% foreach v $\in$ V(G)
+%     v.d $\leftarrow$ $\infty$ // инициализираме разстоянието до върха v като $\infty$
+%     v.$\pi$ $\leftarrow$ Nil // посочваме, че върхът v няма предшественик
+% s.d $\leftarrow$ 0 // инициализираме разстоянието до началният връх s с 0
+% \end{lstlisting}
+% Relax(x, y) - извършва релаксация по ребро (x, y), като актуализира разстоянието до y, ако е намерен по-къс път чрез x
+% \begin{lstlisting}[style=CStyle]
+% if y.d > x.d + w((x, y)) // ако пътят до y през x е по-къс,
+% // го актуализира
+%     y.d $\leftarrow$ x.d + w((x, y)) // намалява оценката на най-къс
+% // път до y
+%     y.$\pi$ $\leftarrow$ x // променя предшественика на y към x
+% \end{lstlisting}
+\textbf{\underline{Алгоритъм} (Дейкстра)} \newline\newline
+\underline{Дадено}: Свързан граф $G(V, E)$ с теглова функция на ребрата $w : E \rightarrow \mathbb{R}^+$ и начален връх $v_0 \in V$. \newline
+\underline{Резултат}: Дърво на минималните пътища от $v_0$ до останалите върхове в $G$. \newline
+% \underline{Процедура}:
+% \begin{enumerate}[label=\protect\circled{\arabic*}]
+%     \item Разширяваме $c : E \rightarrow \mathbb{R}^+$ до $c^* : V \bigtimes V \rightarrow \mathbb{R}^+$.
+%     \item Нека $dist[0] = 0$, $parent[0] = -1$, $U = \{0\}$ и $dist[i] = c^*(0, i)$, $parent[i] = 0, i = 1, 2, ..., n$
+%     \item Повтаряме $n - 1$ пъти стъпките:
+%     \begin{itemize}
+%         \item Избираме връх $j \notin U$ с минимално $dist[j]$ и $U = U \cup \{j\}$
+%         \item За всеки $k \notin U$ пресмятаме $dist[k] = min(dist[k], dist[j] + c^*(j, k))$.
+%         Ако $min$ е $dist[j] + c^*(j, k)$, тогава $parent[k] = j$
+%     \end{itemize}
+% \end{enumerate}
+\underline{Псевдокод}:
+\begin{lstlisting}[style=CStyle]
+foreach v $\in$ V
+    v.d $\leftarrow$ $\infty$ // инициализираме разстоянието до върха v
+    v.$\pi$ $\leftarrow$ Nil // посочваме, че върхът v няма предшественик
+s.d $\leftarrow$ 0 // инициализираме разстоянието до началният връх s
+
+S $\leftarrow \varnothing$ // множество от върхове, за които е намерен НКП от $v_0$
+Q $\leftarrow$ {} // празна приоритетна min опашка
+Q $\leftarrow$ V
+
+while not isempty(Q) do
+    x $\leftarrow$ ExtractMin(Q)
+    S $\leftarrow$ S $\cup$ {x}
+foreach y $\in$ adj[x]
+    if y.d > x.d + w(x, y) // ако пътят до y през x е
+    // по-къс, го актуализира
+        y.d $\leftarrow$ x.d + w(x, y) // намалява оценката на
+        // най-къс път до y
+        y.$\pi$ $\leftarrow$ x // променя предшественика на y към x
+\end{lstlisting}
+% \underline{Сложност по}:
+% \begin{itemize}
+%     \item Време - $O((V + E)logV)$, с приоритетна опашка (например binary heap)
+%     \item Памет - $O(V + E)$, за представяне на графа и помощните структури
+% \end{itemize}
+\underline{Оценка на сложността} \newline\newline
+Ако $\cplain{Q}$ е имплементирана с двоична пирамида, то сложността на алгоритъма е като тази при Прим - $\Theta\cplain{((n + m)lgn)}$ \newline\newline
+\textbf{\underline{Алгоритъм} (Флойд-Уоршал)} \newline\newline
+\underline{Дадено}: Свързан граф $G(V, E)$ с теглова функция на ребрата $w : E \rightarrow \mathbb{R}^+ \cup \{+\infty\}$ \newline
+\underline{Резултат}: Матрица $D$, където $D[i][j]$ съдържа теглото на най-късия път от върха $i$ до върха $j$. \newline
+% \underline{Процедура}:
+% \begin{enumerate}[label=\protect\circled{\arabic*}]
+%     \item За всяко ребро $(u, v) \in E$ с тегло $w(u, v)$ задаваме $dist[u][v] = w(u, v)$.
+%     \item За всеки връх $v \in V$ задаваме $dist[v][v] = 0$.
+%     \item За всяка междинна възлова точка $k \in V$ и всяка двойка върхове $(i, j) \in V \bigtimes V$,
+%     ако $dist[i][j] > dist[i][k] + dist[k][j]$, то $dist[i][j] = dist[i][k] + dist[k][j]$, т.е. ако пътят от $i$ до $j$ чрез междинен връх $k$
+%     е по-къс от досега известния най-къс път, стойността на $dist[i][j]$ се обновява.
+% \end{enumerate}
+\underline{Псевдокод}:
+\begin{lstlisting}[style=CStyle]
+D$^{(0)}$ $\leftarrow$ W
+for k $\leftarrow$ 1 to n
+    for i $\leftarrow$ 1 to n
+        for j $\leftarrow$ 1 to n
+            D$^{(k)}$[i, j] $\leftarrow$ min(D$^{(k-1)}$[i, j],
+            D$^{(k-1)}$[i, k] + D$^{(k-1)}$[k, j])
+return D$^{(n)}$
+\end{lstlisting}
+\underline{Оценка на сложността} \newline\newline
+Сложността по време е очевидно $\Theta\cplain{(n}^3\cplain{)}$.
+% \subsection*{\color{lightBlue}{8. Динамично програмиране. Оценки за сложност.}}
+% \textbf{Динамичното програмиране} е метод за решаване на задачи чрез комбиниране на решенията на подзадачи. Алгоритъмът решава всяка
+% подзадача веднъж и запазва резултата в таблица, избягвайки нуждата от преизчисляване на отговора всеки път, когато решава някоя
+% подзадача. \newline\newline
+% Алгоритмичната схема "динамично програмиране" може да се прилага в задачи, които имат рекурсивно решение. Ако в дървото на рекурсията има много
+% еднакви подзадачи, то тогава би могло да се "запомни" решението на дадена подзадача и следващия път, когато се налжи да се решава тази задача, вместо
+% това да се вземе резултатът наготово. Това "запомняне" наричаме \textbf{мемоизация (memoization)}. Важно условие за прилагане на "мемоизация" е
+% рекурсивните извиквания да зависят само от параметрите си и всеки път при едни и същи параметри да се получава
+% един и същ резултат. Така е сигурно, че колкото и да се решава дадената подзадача, винаги ще се получава резултатът, който е "запомнен" в началото. \newline\newline
+% \textbf{\underline{Принцип за оптималност и конструиране на решението на задачата} \\ \underline{от решенията на подзадачите}} \newline\newline
+% Първата стъпка при решаването на дадена оптимизационна задача чрез динамично програмиране е да се определи сртуктурата на оптималното решение.
+% Ако за намиране на оптимално решение се използват оптимални решения на по-малки задачи, тогава може да се прилага динамично програмиране. Нещо повече -
+% ако това условие не е налице, тогава не е възможно прилагането на динамично програмиране, защото принципът е да свеждаме решаването на задачата до
+% решаване на подзадачи от същия вид. Търси се оптимално решение, значи и подзадачите трябва да имат оптимални решения. Тази необходимост оптималното
+% решение да се получава от оптимални решения на по-малки задачи се нарича \textbf{"принцип за оптималност"}.
+\end{document}

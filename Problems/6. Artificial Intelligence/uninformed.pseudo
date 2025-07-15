@@ -1,0 +1,95 @@
+BFS(start, goal):
+    queue ← [start] // create a queue and add the start node
+    visited ← {} // create an empty set to track visited nodes
+
+    while queue is not empty:
+        current ← queue.pop_front() // current = remove first node from queue
+        
+        if current = goal:
+            return path to the goal
+
+        if current not in visited:
+            visited.add(current) // mark current as visited
+
+            for each neighbor in neighbors(current): // add all unvisited neighbors of current to the queue
+                if neighbor not in visited:
+                    queue.push_back(neighbor)
+                    set_parent(neighbor, current) // store 'current' as the predecessor of 'neighbor' (e.g. p[child] = parent)
+
+    return "Goal not found"
+
+DFS(start, goal):
+    stack ← [start] // create a stack and add the start node
+    visited ← {} // create an empty set to track visited nodes
+
+    while stack is not empty:
+        current ← stack.pop() // current = remove the top node from stack
+        
+        if current = goal:
+            return path to the goal
+
+        if current is not in visited:
+            visited.add(current) // mark current as visited
+
+            for each neighbor in neighbors(current): // add all unvisited neighbors of current to the stack
+                if neighbor not in visited:
+                    stack.push(neighbor)
+                    set_parent(neighbor, current) // store 'current' as the predecessor of 'neighbor' (e.g. p[child] = parent)
+
+    return "Goal not found"
+
+UCS(start, goal):
+    priority_queue ← [(0, start)] // create a priority queue
+    cost ← {start: 0} // add start node with cost 0
+    visited ← {} // create an empty set to track visited nodes
+
+    while priority queue is not empty:
+        (current_cost, current) ← priority_queue.pop_lowest() // current, cost = remove node with lowest cost from queue
+        
+        if current is the goal:
+            return path to the goal
+
+        if current is not in visited:
+            visited.add(current) // mark current as visited
+
+            for each neighbor in neighbors(current):
+                new_cost ← current_cost + cost_to(current, neighbor) // calculate new cost
+
+                if neighbor not in cost or new_cost < cost[neighbor]: // add neighbor to priority queue with new cost
+                    cost[neighbor] ← new_cost
+                    priority_queue.push((new_cost, neighbor))
+                    set_parent(neighbor, current) // store 'current' as the predecessor of 'neighbor' (e.g. p[child] = parent)
+
+    return "Goal not found"
+
+DLS(start, goal, limit):
+    stack ← [(start, 0)] // create stack with (node, depth)
+    visited ← {} // create an empty set to track visited nodes
+
+    while stack is not empty:
+        (current, depth) ← stack.pop() // remove the top node
+
+        if current = goal:
+            return path to the goal
+
+        if current not in visited:
+            visited.add(current) // mark current as visited
+
+            if depth < limit:
+                for each neighbor in neighbors(current): // add neighbors within depth
+                    if neighbor not in visited:
+                        stack.push((neighbor, depth + 1))
+                        set_parent(neighbor, current) // // store 'current' as the predecessor of 'neighbor' (e.g. p[child] = parent)
+
+    return "Goal not found"
+
+IDS(start, goal):
+    depth ← 0
+
+    while true:
+        result ← DLS(start, goal, depth)
+
+        if result ≠ "Goal not found":
+            return result
+
+        depth ← depth + 1

@@ -1,0 +1,111 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathabx}
+\usepackage{graphicx}
+\usepackage{parskip}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage[bulgarian]{babel}
+
+\begin{document}
+
+\renewcommand{\proofname}{\textbf{Доказателство:}\vspace{2em}}
+
+\title{Интеграли}
+\author{}
+\maketitle
+
+\section*{\centering{Производни}}
+
+\subsection*{Основни производни}
+
+\begin{itemize}
+    \item $(x^{\alpha}) = \alpha x^{\alpha}$
+    \item $(e^x)' = e^x$
+    \item $(lnx)' = \frac{1}{x}$
+    \item $(sinx)' = cosx$
+    \item $(cosx)' = -sinx$
+    \item $(tgx)' = \frac{1}{cos^2x}$
+    \item $(cotgx)' = \frac{1}{sin^2x}$
+    \item $(arctgx)' = \frac{1}{1 + x^2}$
+    \item $(arccotgx)' = -\frac{1}{1 + x^2}$
+\end{itemize}
+
+\subsection*{{Основни правила за диференциране}}
+
+\begin{enumerate}
+    \item $c' = 0$
+    \item $[cf(x)]' = c[f'(x)]$
+    \item $[f(x) \pm g(x)]' = f'(x) \pm g'(x)$
+    \item $[f(x)g(x)]' = f'(x)g(x) + f(x)g'(x)$
+    \item $[\frac{f(x)}{g(x)}]' = \frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2}$
+    \item $[f(g(x))]' = f'(g(x))g(x)$
+\end{enumerate}
+
+\section*{\centering{Интеграли}}
+
+\subsection*{{Основни интеграли}}
+
+\begin{itemize}
+    \item $\int x^{\alpha}dx = \frac{x^{\alpha+1}}{\alpha+1} + c$
+    \item $\int e^xdx = e^x + c$
+    \item $\int \frac{1}{x}dx = ln|x| + c$
+    \item $\int a^xdx = \frac{a^x}{lna} + c$
+    \item $\int sinxdx = -cosx + c$
+    \item $\int cosxdx = sinx + c$
+    \item $\int \frac{1}{sin^2x}dx = -cotgx + c$
+    \item $\int \frac{1}{cos^2x}dx = tgx + c$
+    \item $\int \frac{1}{\sqrt{1 - x^2}}dx = arcsinx + c$
+    \item $\int \frac{1}{1 + x^2}dx = arctgx + c$
+    \item $\int \frac{1}{\sqrt{x^2 + a}}dx = ln|x + \sqrt{x^2 + a}| + c$
+\end{itemize}
+
+\subsection*{{Основни правила за интегриране}}
+
+\begin{enumerate}
+    \item $\int [f(x) \pm g(x)]dx = \int f(x)dx \pm \int g(x)dx$
+    \item $\int cf(x)dx = c\int f(x)dx$
+\end{enumerate}
+
+\subsection*{{Основни методи за пресмятане на неопределени интеграли}}
+
+\begin{enumerate}
+    \item Внасяне зад диференциала: $\int f(x)dg(x) = \int f(x)g'(x)dx$
+        \begin{itemize}
+            \item $\int f(x)dg(x) = \int f(x)d(g(x) + c)$
+            \item $\int f(x)d(cg(x)) = \int cf(x)dg(x) = c\int f(x)dg(x)$
+        \end{itemize}        
+    \item Интегриране по части: $\int f(x)dg(x) = f(x)g(x) - \int g(x)df(x)$
+    \item Смяна на променливата:
+        \begin{itemize}
+            \item $t = \sqrt{x}$
+            \item $t = tg\frac{x}{2}$ (универсална тригонометрична замяна)
+        \end{itemize}
+    \item Интегриране на рационални функции
+\end{enumerate}
+
+\subsection*{{Други стратегии}}
+
+\begin{itemize}
+    \item Представяне на радикали като степени: $\sqrt{x} = x^2$
+    \item Умножение и деление на едно и също число: $\int xdx = \frac{1}{a} \int xd(xa)$
+    \item Използване на тригонометрични тъждества:
+        \begin{itemize}
+            \item $sin^2x + cos^2x = 1$
+            \item $sin^2x = \frac{1 - cos2x}{2}$
+            \item $cos^2x = \frac{1 + cos2x}{2}$
+            \item $sin^2x = 2sinxcosx$
+        \end{itemize}
+    \item Прилагане на свойствата на логаритмите:
+        \begin{itemize}
+            \item $ln(ab) = lna + lnb$
+            \item $ln(\frac{a}{b}) = lna - lnb$
+            \item $ln(a^k) = klna$
+        \end{itemize}
+\end{itemize}
+
+\end{document}

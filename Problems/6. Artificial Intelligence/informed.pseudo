@@ -1,0 +1,94 @@
+BestFirstSearch(start, goal, heuristic):
+    priority_queue ← [(heuristic(start), start)] // create a priority queue and add start node with heuristic value
+    visited ← {} // create an empty set to track visited nodes
+
+    while priority queue is not empty:
+        (h_value, current) ← priority_queue.pop_lowest() // current = remove node with best heuristic value
+
+        if current = goal:
+            return path to the goal
+
+        if current not in visited:
+            visited.add(current) // mark current as visited
+
+            for each neighbor in neighbors(current): // add all unvisited neighbors of current to the queue with heuristic values
+                if neighbor not in visited:
+                    visited.add(neighbor)
+                    priority_queue.push((heuristic(neighbor), neighbor))
+                    set_parent(neighbor, current)
+
+    return "Goal not found"
+
+BeamSearch(start, goal, k, heuristic):
+    queue ← [(heuristic(start), start)] // create a queue and add start node with heuristic value
+    visited ← {}
+
+    while queue is not empty:
+        queue.sort_by_heuristic()
+        queue ← queue[0:k] // keep only the best k nodes in the queue
+        next_queue ← []
+
+        for each (h_value, node) in queue: // for each node in the queue
+            if node = goal:
+                return path to the goal
+
+            if node not in visited:
+                visited.add(node)
+
+                for each neighbor in neighbors(node): // expand node and add neighbors to the queue with heuristic values
+                    if neighbor not in visited:
+                        visited.add(neighbor)
+                        next_queue.append((heuristic(neighbor), neighbor))
+                        set_parent(neighbor, node)
+
+        queue ← next_queue
+
+    return "Goal not found"
+
+HillClimbing(start, goal, heuristic):
+    current ← start
+    visited ← {}
+    visited.add(current)
+
+    while true:
+        if current = goal:
+            return path to the goal
+
+        neighbors ← neighbors(current) // neighbors = get all neighbors of current
+
+        if neighbors is empty:
+            return "Goal not found"
+
+        best_neighbor ← neighbor with lowest heuristic(neighbor) // best_neighbor = neighbor with best heuristic value
+
+        if heuristic(best_neighbor) ≥ heuristic(current): // if best_neighbor is worse than current
+            return "Local optimum reached"
+
+        set_parent(best_neighbor, current)
+        visited.add(best_neighbor)
+        current ← best_neighbor
+
+AStar(start, goal, heuristic):
+    priority_queue ← [(heuristic(start), 0, start)] // create a priority queue and add start node with cost 0 + heuristic value
+    g_cost ← {start: 0} // create an empty dictionary to store cost from start to each node
+    visited ← {}
+
+    while priority queue is not empty:
+        (f_value, g_value, current) ← priority_queue.pop_lowest() // current, cost = remove node with lowest f(n) = g(n) + h(n)
+
+        if current = goal:
+            return path to the goal
+
+        if current not in visited: // if current is not in visited
+            visited.add(current) // mark current as visited
+
+            for each neighbor in neighbors(current):
+                new_g ← g_value + cost_to(current, neighbor) // new_cost = cost to reach neighbor
+
+                if neighbor not in g_cost or new_g < g_cost[neighbor]:
+                    g_cost[neighbor] ← new_g
+                    f_value ← new_g + heuristic(neighbor) // total_cost = new_cost + heuristic(neighbor)
+                    priority_queue.push((f_value, new_g, neighbor)) // add neighbor to priority queue with total_cost
+                    set_parent(neighbor, current)
+
+    return "Goal not found"

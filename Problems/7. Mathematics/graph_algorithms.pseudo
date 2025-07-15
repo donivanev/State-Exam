@@ -1,0 +1,61 @@
+Prim(G): // T = O(E log V), S = none
+    T ← ∅ // Initialize an empty set to store the edges of the MST
+    U ← { start_vertex } // Start with an arbitrary vertex in the set of visited vertices
+    
+    while (U ≠ V) // While not all vertices are in the MST
+        select (u, v) be the lowest cost edge such that u ∈ U and v ∈ V - U // U - list of visited vertices, V - U is list of not visited vertices
+        T ← T ∪ {(u, v)} // Add the selected edge to the MST
+        U ← U ∪ {v} // Add the new vertex to the set of visited vertices
+
+    return T // return the constructed MST
+
+Kruskal(G): // T = O(E log E), S = none
+    T ← ∅ // Initialize an empty set to store the edges of the MST
+    
+    foreach vertex v ∈ G.V // Initialize the disjoint sets for each vertex
+        make_set(v) // Create a separate set for each vertex
+
+    foreach edge (u, v) ∈ G.E ordered by increasing order by weight(u, v) // Process edges in sorted order
+        if find_set(u) ≠ find_set(v) // Check if u and v belong to different sets
+            T ← T ∪ {(u, v)} // Add the selected edge to the MST
+            union(u, v) // Merge the sets of u and v
+
+    return T // return the constructed MST
+
+Dijkstra(G, S): // T = O(E log V), S = O(V)
+    for each vertex V in G // Initialize distances and predecessors
+        distance[V] ← infinity // Set all distances to infinity initially
+        previous[V] ← NULL // No predecessor initially
+        
+    distance[S] ← 0  // The start vertex distance to itself is 0
+    add all vertices to priority queue Q  // Add all vertices to the priority queue
+
+    while Q is not empty // Process until all vertices are settled
+        U ← extract MIN from Q // Get the vertex with the smallest distance
+        
+        for each unvisited neighbour V of U // Explore the neighbors of U
+            tempDistance ← distance[U] + edge_weight(U, V) // Calculate the new path cost
+            
+            if tempDistance < distance[V] // If a shorter path is found
+                distance[V] ← tempDistance // Update distance to the neighbor
+                previous[V] ← U // Set the predecessor to U
+                decrease_key(Q, V, distance[V])  // Update the priority queue with the new distance
+
+    return distance[], previous[] // Return the shortest path distances and predecessors
+
+Floyd_Warshall(): // T = O(n^3), S = O(n^2)
+    n ← |V| // Get the number of vertices
+    A ← matrix of dimension n * n initialized to infinity // Initialize distance matrix
+
+    foreach edge(u, v) ∈ G.E // Initialize the given edges
+        A[u, v] ← w(u, v) // Set the weight of the given edge in the matrix
+
+    foreach vertex v // Set the diagonal values to 0 (distance to itself)
+        A[v, v] ← 0 // Distance from a node to itself is zero
+
+    for k ← 1 to n // Consider each vertex as an intermediate vertex
+        for i ← 1 to n // Iterate over all pairs of vertices (i, j)
+            for j ← 1 to n
+                A[i, j] ← min(A[i, j], A[i, k] + A[k, j])
+
+    return A // Return the matrix containing shortest path distances
